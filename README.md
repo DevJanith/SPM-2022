@@ -24,16 +24,6 @@
 > source\spm-2022\template\template> yarn start
 
 ```
-
-## How to start Backend (Node JS+ Express)
-
-```javascript
-
-> source\ds_product_store\backend> npm i
-
-> source\ds_product_store\backend> npm start
-
-```
 ## Resources
 
 ###### Frontend Resources
