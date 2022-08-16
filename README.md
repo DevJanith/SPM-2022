@@ -1,7 +1,5 @@
 # SPM Assignment repo
 
-###### Farmers portal project that have buying and selling capabilities. Frontend-React JS | Backend framework-express | Backend language-javascript To Start the project **you must start backend and frontend** without starting any one of them the project won't start
-
 ## How to start Template (React.js)
 ###### Navigate to template folder then execute below commands,
 
