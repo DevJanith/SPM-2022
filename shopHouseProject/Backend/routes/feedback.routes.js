@@ -6,6 +6,7 @@ import {
   getFeedback,
   getFeedbackReport,
   getFeedbacks,
+  getUserFeedbacks,
   updateFeedback,
 } from "../controllers/feedback.controller.js";
 
@@ -17,5 +18,6 @@ router.get("/:id", getFeedback);
 router.delete("/:id", deleteFeedback);
 router.put("/:id", updateFeedback);
 router.post("/report", getFeedbackReport);
+router.get("/user/:id", getUserFeedbacks);
 
 export default router;

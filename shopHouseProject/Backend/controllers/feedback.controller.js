@@ -5,7 +5,7 @@ import Feedback from "../models/feedback.model.js";
 export const createFeedback = async (req, res) => {
   //   const feedback = req.body;
   var now = new Date();
-
+  const userID = req.body.userID;
   const name = req.body.name;
   const email = req.body.email;
   const mobile = req.body.mobile;
@@ -14,6 +14,7 @@ export const createFeedback = async (req, res) => {
   const date = now;
 
   const feedback = {
+    userID,
     name,
     email,
     mobile,
@@ -83,6 +84,21 @@ export const getFeedbacks = async (req, res) => {
   }
 };
 
+//get feedbacks of user
+
+export const getUserFeedbacks = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const Feedbacks = await Feedback.find({ userID: id });
+
+    res.status(200);
+    res.json(Feedbacks);
+  } catch (error) {
+    res.status(404);
+    res.json({ message: error.message });
+  }
+};
+
 //get report data
 export const getFeedbackReport = async (req, res) => {
   const startDate = req.body.start;
@@ -110,7 +126,7 @@ export const getFeedbackReport = async (req, res) => {
 
 export const updateFeedback = async (req, res) => {
   const { id } = req.params;
-  const { name, email, mobile, description, rating } = req.body;
+  const { userID, name, email, mobile, description, rating } = req.body;
 
   let date = new Date().toLocaleString({ timeZone: "Asia/Colombo" });
 
@@ -119,6 +135,7 @@ export const updateFeedback = async (req, res) => {
       return res.status(404).send(`No Feedback with id: ${id}`);
     }
     const updateFeedback = {
+      userID,
       name,
       email,
       mobile,

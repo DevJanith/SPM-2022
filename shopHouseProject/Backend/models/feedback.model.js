@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const feedbackSchema = mongoose.Schema({
+  userID: {
+    type: String,
+    require: true,
+  },
   name: {
     type: String,
     require: true,
