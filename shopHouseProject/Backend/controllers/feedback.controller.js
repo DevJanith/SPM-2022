@@ -115,7 +115,21 @@ export const getFeedbackReport = async (req, res) => {
     });
 
     res.status(200);
-    res.json(Feedbacks);
+
+    if (Feedbacks.length != 0) {
+      res.json({
+        filter: {
+          startDate,
+          endDate,
+        },
+        data: Feedbacks,
+      });
+    } else {
+      res.json({
+        message: "No Data for selected filter",
+        data: null,
+      });
+    }
   } catch (error) {
     res.status(404);
     res.json({ message: error.message });
