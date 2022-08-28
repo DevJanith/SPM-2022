@@ -46,6 +46,7 @@ app.get('/shop-house/swagger-doc', (req, res) => {
 
 app.use('/shop-house/tutorial', tutorialRoutes);
 app.use('/shop-house/user', userRoutes);
+app.use("/shop-house/feedback", feedbackRoutes);
 
 const CONNECTION_URL = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.46vukap.mongodb.net/?retryWrites=true&w=majority`;
 
