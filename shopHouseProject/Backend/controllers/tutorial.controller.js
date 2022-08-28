@@ -1,20 +1,29 @@
-import express from 'express';
 import mongoose from 'mongoose';
 
 import Tutorial from "../models/tutorial.models.js";
 
-export const getTutorials = async (req, res) => {
+export const getTutorials = async () => {
     try {
         const Tutorials = await Tutorial.find();
 
-        res.status(200);
-        res.json(Tutorials);
+        return {
+            success: true,
+            data: Tutorials
+        }
+
+        // res.status(200);
+        // res.json(Tutorials);
 
     } catch (error) {
         console.log(error)
 
-        res.status(404);
-        res.json({ message: error.message })
+        // res.status(404);
+        // res.json({ message: error.message })
+
+        return {
+            success: false,
+            data: { message: error.message }
+        }
     }
 }
 
