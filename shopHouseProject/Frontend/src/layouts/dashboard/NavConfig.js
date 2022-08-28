@@ -27,6 +27,16 @@ const navConfig = [
     icon: getIcon('eva:file-text-fill'),
   },
   {
+    title: 'sample',
+    path: '/dashboard/sample',
+    icon: getIcon('eva:checkmark-circle-2-outline'),
+  },
+  {
+    title: 'feed back',
+    path: '/dashboard/feedback',
+    icon: getIcon('eva:email-outline'),
+  },
+  {
     title: 'login',
     path: '/login',
     icon: getIcon('eva:lock-fill'),
