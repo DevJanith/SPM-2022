@@ -1,21 +1,14 @@
-import PropTypes from 'prop-types';
-import { useEffect } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
-// material
+import { Avatar, Box, Drawer, Link, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { Box, Link, Button, Drawer, Typography, Avatar, Stack } from '@mui/material';
-// mock
-import account from '../../_mock/account';
-// hooks
-import useResponsive from '../../hooks/useResponsive';
-// components
+import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import Logo from '../../components/Logo';
-import Scrollbar from '../../components/Scrollbar';
 import NavSection from '../../components/NavSection';
-//
+import Scrollbar from '../../components/Scrollbar';
+import useResponsive from '../../hooks/useResponsive';
+import account from '../../_mock/account';
 import navConfig from './NavConfig';
-
-// ----------------------------------------------------------------------
 
 const DRAWER_WIDTH = 280;
 
@@ -53,6 +46,26 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    try {
+      setUser(JSON.parse(sessionStorage.getItem("token")));
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  const [userData, setUserData] = useState(null)
+
+  useEffect(() => {
+    const data = JSON.parse(sessionStorage.getItem('token'));
+    if (data) {
+      setUserData(data);
+    }
+
+  }, [])
+
   const renderContent = (
     <Scrollbar
       sx={{
@@ -61,7 +74,14 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       }}
     >
       <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
-        <Logo />
+        <Box sx={{ display: 'flex' }}>
+          <Box sx={{ flex: '1' }}>
+            <Logo />
+          </Box>
+          <Box sx={{ flex: '4', margin: "8px" }}>
+            <h3>DS_Product Store</h3>
+          </Box>
+        </Box>
       </Box>
 
       <Box sx={{ mb: 5, mx: 2.5 }}>
@@ -70,7 +90,8 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
             <Avatar src={account.photoURL} alt="photoURL" />
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                {account.displayName}
+                {/* {account.displayName} */}
+                {user != null ? user?.result.name : "Currently No User Available"}
               </Typography>
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                 {account.role}
@@ -80,7 +101,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
         </Link>
       </Box>
 
-      <NavSection navConfig={navConfig} />
+      <NavSection userData={userData} user={user} navConfig={navConfig} />
 
       <Box sx={{ flexGrow: 1 }} />
 
@@ -108,6 +129,8 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       </Box> */}
     </Scrollbar>
   );
+
+
 
   return (
     <RootStyle>

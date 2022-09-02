@@ -112,7 +112,8 @@ export default function ShopFilterSidebar({ isOpenFilter, onOpenFilter, onCloseF
               <ColorManyPicker
                 name="colors"
                 colors={FILTER_COLOR_OPTIONS}
-                onChecked={(color) => [].includes(color)}
+                // onChange={handleChange}
+                // onChecked={(color) => values.colors.includes(color)}
                 sx={{ maxWidth: 38 * 4 }}
               />
             </div>

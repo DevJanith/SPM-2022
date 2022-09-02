@@ -1,13 +1,12 @@
-import { useState } from 'react';
+import { Box, Collapse, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { alpha, styled, useTheme } from '@mui/material/styles';
 import PropTypes from 'prop-types';
-import { NavLink as RouterLink, matchPath, useLocation } from 'react-router-dom';
-// material
-import { alpha, useTheme, styled } from '@mui/material/styles';
-import { Box, List, Collapse, ListItemText, ListItemIcon, ListItemButton } from '@mui/material';
-//
+import { useState } from 'react';
+import { matchPath, Navigate, NavLink as RouterLink, useLocation } from 'react-router-dom';
+import navConfigBuyer from '../layouts/dashboard/NavConfigBuyer';
+import navConfigTrader from '../layouts/dashboard/NavConfigTrader';
 import Iconify from './Iconify';
 
-// ----------------------------------------------------------------------
 
 const ListItemStyle = styled((props) => <ListItemButton disableGutters {...props} />)(({ theme }) => ({
   ...theme.typography.body2,
@@ -26,8 +25,6 @@ const ListItemIconStyle = styled(ListItemIcon)({
   alignItems: 'center',
   justifyContent: 'center',
 });
-
-// ----------------------------------------------------------------------
 
 NavItem.propTypes = {
   item: PropTypes.object,
@@ -139,18 +136,47 @@ NavSection.propTypes = {
   navConfig: PropTypes.array,
 };
 
-export default function NavSection({ navConfig, ...other }) {
+export default function NavSection({ user, navConfig, ...other }) {
   const { pathname } = useLocation();
 
   const match = (path) => (path ? !!matchPath({ path, end: false }, pathname) : false);
 
-  return (
-    <Box {...other}>
-      <List disablePadding sx={{ p: 1 }}>
-        {navConfig.map((item) => (
-          <NavItem key={item.title} item={item} active={match} />
-        ))}
-      </List>
-    </Box>
-  );
+  switch (user.result.type) {
+    case "trader":
+      return (
+        <Box {...other}>
+          <List disablePadding sx={{ p: 1 }}>
+            {navConfigTrader.map((item) => (
+              <NavItem key={item.title} item={item} active={match} />
+            ))}
+          </List>
+        </Box>
+      );
+      break;
+    case "buyer":
+      return (
+        <Box {...other}>
+          <List disablePadding sx={{ p: 1 }}>
+            {navConfigBuyer.map((item) => (
+              <NavItem key={item.title} item={item} active={match} />
+            ))}
+          </List>
+        </Box>
+      );
+      break;
+    case "admin":
+      return (
+        <Box {...other}>
+          <List disablePadding sx={{ p: 1 }}>
+            {navConfig.map((item) => (
+              <NavItem key={item.title} item={item} active={match} />
+            ))}
+          </List>
+        </Box>
+      );
+      break;
+    default:
+      return (<Navigate to={{ pathname: '/login' }} />)
+      break;
+  }
 }
