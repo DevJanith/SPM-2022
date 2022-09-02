@@ -29,9 +29,18 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function CartWidget() {
+export default function CartWidget(props) {
+
+  const {
+    value,
+    setValue,
+    cart,
+    setCart
+  } = props
+  // console.log(cart.length())
+ 
   return (
-    <RootStyle>
+    <RootStyle onClick={(e) => { setValue(2) }}>
       <Badge showZero badgeContent={0} color="error" max={99}>
         <Iconify icon="eva:shopping-cart-fill" width={24} height={24} />
       </Badge>
