@@ -19,5 +19,3 @@ export const fetchPayments = () => API.get(`/payment`);
 export const createPayment = (newPayment) => API.post(`/payment`, newPayment);
 export const deletePayment = (id) => API.delete(`/payment/${id}`);
 export const updatePayment = (id, updatePayment) => API.patch(`/payment/${id}`, updatePayment);
-
-
