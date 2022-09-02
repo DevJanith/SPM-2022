@@ -2,15 +2,7 @@
 
 import { Container, Stack, Typography } from '@mui/material';
 // components
-import dayjs from 'dayjs';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
+
 import Box from '@mui/material/Box';
 import * as React from 'react';
 import Tab from '@mui/material/Tab';
@@ -59,13 +51,6 @@ export function FeedBackView(props) {
   const [mobileNoUpdate, setMobileNoUpdate] = React.useState();
   const [ratingUpdate, setRatingUpdate] = React.useState(2);
   const [descriptionUpdate, setDescriptionUpdate] = React.useState();
-
-  //  admin report
-  const [startDate, setStartDate] = React.useState(dayjs());
-  const [endDate, setEndDate] = React.useState(dayjs());
-
-  //   view feedbacks admin filter
-  const [filter, setFilter] = React.useState();
 
   const getIcon = (name) => <Iconify icon={name} width={22} height={22} />;
 
@@ -233,8 +218,6 @@ export function FeedBackView(props) {
               <TabList onChange={handleTabChange} aria-label="lab API tabs example">
                 <Tab label="Add Feedback" value="1" />
                 <Tab label="View Your Feedbacks" value="2" />
-                <Tab label="View Feedbacks - admin" value="3" />
-                <Tab label="View Feedback Report - admin" value="4" />
               </TabList>
             </Box>
             <TabPanel value="1">
@@ -568,184 +551,6 @@ export function FeedBackView(props) {
                   </Button>
                 </DialogActions>
               </Dialog>
-            </TabPanel>
-            <TabPanel value="3">
-              <Typography variant="h4" gutterBottom>
-                Customer Feedbacks
-              </Typography>
-              <Card
-                sx={{
-                  padding: 2,
-                  paddingBottom: 7,
-                }}
-                variant="outlined"
-              >
-                <Grid
-                  container
-                  direction="row"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  sx={{
-                    marginBottom: 3,
-                  }}
-                >
-                  <TextField
-                    id="outlined-basic"
-                    type="text"
-                    label="Search Feedback by Name"
-                    variant="outlined"
-                    required
-                    size="small"
-                    sx={{
-                      minWidth: 300,
-                    }}
-                  />
-
-                  <Stack
-                    direction="row"
-                    spacing={2}
-                    sx={{
-                      marginTop: 0,
-                    }}
-                  >
-                    <FormControl fullWidth>
-                      <InputLabel id="demo-simple-select-label">FIlter by Rating</InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        label="Age"
-                        size="small"
-                        sx={{
-                          minWidth: 200,
-                        }}
-                        onChange={(e) => {
-                          filterByRating(e.target.value);
-                        }}
-                      >
-                        <MenuItem value={1}>Default</MenuItem>
-                        <MenuItem value={2}>Low to High</MenuItem>
-                        <MenuItem value={3}>High to Low</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Stack>
-                </Grid>
-                <TableContainer component={Paper}>
-                  <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell align="right">Email</TableCell>
-                        <TableCell align="right">Mobile Number</TableCell>
-                        <TableCell align="right">Descriptions</TableCell>
-                        <TableCell align="right">Date</TableCell>
-                        <TableCell align="right">Rating (Out of 5)</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {data.map((row) => (
-                        <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                          <TableCell component="th" scope="row">
-                            {row.name}
-                          </TableCell>
-                          <TableCell align="right">{row.email}</TableCell>
-                          <TableCell align="right">{row.mobile}</TableCell>
-                          <TableCell align="right">{row.description}</TableCell>
-                          <TableCell align="right">{row.date}</TableCell>
-                          <TableCell align="right">{row.rating}</TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </Card>
-            </TabPanel>
-            <TabPanel value="4">
-              <Typography variant="h4" gutterBottom>
-                Customer Feedback Report
-              </Typography>
-              <Card
-                sx={{
-                  padding: 2,
-                  paddingBottom: 7,
-                }}
-                variant="outlined"
-              >
-                <Grid
-                  container
-                  direction="row"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  sx={{
-                    marginBottom: 3,
-                  }}
-                >
-                  <Stack direction="row" spacing={2}>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DatePicker
-                        label="Start Date"
-                        value={value}
-                        onChange={(newValue) => {
-                          setStartDate(newValue);
-                        }}
-                        renderInput={(params) => <TextField {...params} size="small" />}
-                      />
-                      <DatePicker
-                        label="End Date"
-                        value={value}
-                        onChange={(newValue) => {
-                          setEndDate(newValue);
-                        }}
-                        renderInput={(params) => <TextField {...params} size="small" />}
-                      />
-                    </LocalizationProvider>
-                    <Button
-                      variant="contained"
-                      startIcon={getIcon('eva:file-text-outline')}
-                      sx={{ marginLeft: 2 }}
-                      color="primary"
-                      size="small"
-                    >
-                      Generate Report
-                    </Button>
-                  </Stack>
-                  <Button
-                    variant="outlined"
-                    startIcon={getIcon('eva:arrow-circle-down-outline')}
-                    sx={{ marginLeft: 2 }}
-                    color="error"
-                  >
-                    Download as PDF
-                  </Button>
-                </Grid>
-                <TableContainer component={Paper}>
-                  <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell align="right">Email</TableCell>
-                        <TableCell align="right">Mobile Number</TableCell>
-                        <TableCell align="right">Descriptions</TableCell>
-                        <TableCell align="right">Date</TableCell>
-                        <TableCell align="right">Rating (Out of 5)</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {data.map((row) => (
-                        <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                          <TableCell component="th" scope="row">
-                            {row.name}
-                          </TableCell>
-                          <TableCell align="right">{row.email}</TableCell>
-                          <TableCell align="right">{row.mobile}</TableCell>
-                          <TableCell align="right">{row.description}</TableCell>
-                          <TableCell align="right">{row.date}</TableCell>
-                          <TableCell align="right">{row.rating}</TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </Card>
             </TabPanel>
           </TabContext>
         </Box>

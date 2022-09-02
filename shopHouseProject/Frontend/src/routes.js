@@ -10,7 +10,7 @@ import NotFound from './pages/Page404';
 import Register from './pages/Register';
 import Products from './pages/Products';
 import DashboardApp from './pages/DashboardApp';
-import { FeedBack, SamplePage } from './pages';
+import { FeedBack, SamplePage, FeedBackManagement } from './pages';
 
 // ----------------------------------------------------------------------
 
@@ -26,6 +26,7 @@ export default function Router() {
         { path: 'blog', element: <Blog /> },
         { path: 'sample', element: <SamplePage /> },
         { path: 'feedback', element: <FeedBack /> },
+        { path: 'feedback-management', element: <FeedBackManagement /> },
       ],
     },
     {
