@@ -4,13 +4,13 @@ import DashboardLayout from './layouts/dashboard';
 import LogoOnlyLayout from './layouts/LogoOnlyLayout';
 //
 import Blog from './pages/Blog';
-import User from './pages/User';
+import DashboardApp from './pages/DashboardApp';
 import Login from './pages/Login';
 import NotFound from './pages/Page404';
-import Register from './pages/Register';
 import Products from './pages/Products';
-import DashboardApp from './pages/DashboardApp';
-import { FeedBack, SamplePage } from './pages';
+import ItemManagement from './pages/Project/ItemManagement/ItemManagement';
+import Register from './pages/Register';
+import User from './pages/User';
 
 // ----------------------------------------------------------------------
 
@@ -24,8 +24,7 @@ export default function Router() {
         { path: 'user', element: <User /> },
         { path: 'products', element: <Products /> },
         { path: 'blog', element: <Blog /> },
-        { path: 'sample', element: <SamplePage /> },
-        { path: 'feedback', element: <FeedBack /> },
+        { path: 'item', element: <ItemManagement /> },
       ],
     },
     {

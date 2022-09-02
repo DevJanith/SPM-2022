@@ -1,21 +1,17 @@
 import { faker } from '@faker-js/faker';
 // @mui
+import { Container, Grid, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { Grid, Container, Typography } from '@mui/material';
 // components
-import Page from '../components/Page';
 import Iconify from '../components/Iconify';
+import Page from '../components/Page';
 // sections
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getTutorials } from 'src/actions/tutorial';
 import {
-  AppTasks,
-  AppNewsUpdate,
-  AppOrderTimeline,
-  AppCurrentVisits,
-  AppWebsiteVisits,
-  AppTrafficBySite,
-  AppWidgetSummary,
-  AppCurrentSubject,
-  AppConversionRates,
+  AppConversionRates, AppCurrentSubject, AppCurrentVisits, AppNewsUpdate,
+  AppOrderTimeline, AppTasks, AppTrafficBySite, AppWebsiteVisits, AppWidgetSummary
 } from '../sections/@dashboard/app';
 
 // ----------------------------------------------------------------------
@@ -23,12 +19,43 @@ import {
 export default function DashboardApp() {
   const theme = useTheme();
 
+  const dispatch = useDispatch()
+
+  useEffect(async () => {
+    try {
+      await dispatch(getTutorials())
+    } catch (error) {
+      console.log(error)
+    }
+  }, [])
+
+  const tutorial = useSelector((state) => state.tutorialReducer);
+
+  console.log(tutorial.data)
+
   return (
     <Page title="Dashboard">
       <Container maxWidth="xl">
         <Typography variant="h4" sx={{ mb: 5 }}>
           Hi, Welcome back
         </Typography>
+        {/* {
+          typeof tutorial.data != "undefined" && tutorial.data.map((item, index) => {
+            return <>
+              <Grid container spacing={3}>
+                <Grid item xs={12} sm={6} md={3}>
+                  <h1>{item.title}</h1>
+                </Grid>
+                <Grid item xs={12} sm={6} md={3}>
+                  <h1>{item.description}</h1>
+                </Grid>
+                <Grid item xs={12} sm={6} md={3}>
+                  <h1>{item.published}</h1>
+                </Grid>
+              </Grid>
+            </>
+          })
+        } */}
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
