@@ -32,9 +32,14 @@ const navConfig = [
     icon: getIcon('eva:checkmark-circle-2-outline'),
   },
   {
-    title: 'feed back',
+    title: 'feedback',
     path: '/dashboard/feedback',
-    icon: getIcon('eva:email-outline'),
+    icon: getIcon('eva:message-circle-outline'),
+  },
+  {
+    title: 'feedback management',
+    path: '/dashboard/feedback-management',
+    icon: getIcon('eva:message-circle-outline'),
   },
   {
     title: 'login',
