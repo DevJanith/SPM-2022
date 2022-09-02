@@ -14,9 +14,13 @@ const ItemSchema = mongoose.Schema({
         require: true
     },
     price: {
+        type: String,
+        require: true
+    },
+    date: {
         type: Date,
         default: new Date()
-    }
+    },
 });
 
 const ItemModal = mongoose.model('ItemModal', ItemSchema);
