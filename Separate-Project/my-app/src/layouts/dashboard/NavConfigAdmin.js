@@ -20,14 +20,18 @@ const navConfigAdmin = [
         title: 'List',
         path: '/dashboard/user-management/admin/list'
       },
-      {
-        title: 'Create',
-        path: '/dashboard/user-management/admin/create'
-      },
-      {
-        title: 'Update',
-        path: '/dashboard/user-management/admin/update/:id'
-      }
+      // {
+      //   title: 'Create',
+      //   path: '/dashboard/user-management/admin/create'
+      // },
+      // {
+      //   title: 'Update',
+      //   path: '/dashboard/user-management/admin/update/:id'
+      // },
+      // {
+      //   title: 'View',
+      //   path: '/dashboard/user-management/admin/view/:id'
+      // }
     ]
   }, 
   {

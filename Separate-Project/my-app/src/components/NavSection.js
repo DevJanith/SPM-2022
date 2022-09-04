@@ -144,7 +144,7 @@ NavSection.propTypes = {
 
 export default function NavSection({ navConfig, navConfigAdmin, navConfigClient, ...other }) {
   const { pathname } = useLocation();
-  const [UserType, setUserType] = useState("default")
+  const [UserType, setUserType] = useState("admin")
 
   const match = (path) => (path ? !!matchPath({ path, end: false }, pathname) : false);
 

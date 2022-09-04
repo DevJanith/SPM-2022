@@ -1,10 +1,75 @@
-interface UserViewViewProps { }
+import { LoadingButton } from "@mui/lab";
+import { Card, Container, IconButton, InputAdornment, Stack, Typography } from "@mui/material";
+import { FormProvider, RHFTextField } from '../../../../components/hook-form';
+import Iconify from '../../../../components/Iconify';
+import Page from "../../../../components/Page";
+import { UserViewViewProps } from './Types/Types';
 
 export function UserViewView(props: UserViewViewProps) {
     const {
-
+        methods,
+        handleSubmit,
+        onSubmit,
+        showPassword,
+        setShowPassword,
+        isSubmitting,
+        ContentStyle
     } = props
+
     return <>
-        <h1>UserViewView</h1>
+        {/* @ts-ignore */}
+        <Page Page title="User-View" >
+            <Container>
+                <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+                    <Typography variant="h4" gutterBottom>
+                        User View
+                    </Typography>
+                </Stack>
+                <Card>
+                    <Container>
+                        <ContentStyle>
+                            <Typography variant="h6" gutterBottom>
+                                User Form
+                            </Typography>
+                            <Typography sx={{ color: 'text.secondary', mb: 3 }}>View User Details.</Typography>
+                            <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+                                <Stack spacing={3}>
+                                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+                                        <RHFTextField name="firstName" label="First name" />
+                                        <RHFTextField name="lastName" label="Last name" />
+                                    </Stack>
+
+                                    <RHFTextField name="email" label="Email address" />
+
+                                    <RHFTextField
+                                        name="password"
+                                        label="Password"
+                                        type={showPassword ? 'text' : 'password'}
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton edge="end" onClick={() => setShowPassword(!showPassword)}>
+                                                        <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} sx={undefined} />
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                    />
+
+                                    <Stack spacing={3}>
+                                        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+                                            <LoadingButton fullWidth size="large" type="button" variant="contained" loading={isSubmitting}>
+                                                Cancel
+                                            </LoadingButton>
+                                        </Stack>
+                                    </Stack>
+                                </Stack>
+                            </FormProvider>
+                        </ContentStyle>
+                    </Container>
+
+                </Card>
+            </Container>
+        </Page>
     </>
 }
