@@ -12,7 +12,7 @@ const navConfigClient = [
     icon: getIcon('eva:pie-chart-2-fill'),
   }, 
   {
-    title: 'user management Client',
+    title: 'user management',
     path: '/dashboard/user-management/client',
     icon: getIcon('eva:people-fill'),
     children: [
@@ -31,7 +31,7 @@ const navConfigClient = [
     ]
   },
   {
-    title: 'feedback management Client',
+    title: 'feedback management',
     path: '/dashboard/feedback-management/client',
     icon: getIcon('eva:message-square-fill'),
     children: [
