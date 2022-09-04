@@ -38,7 +38,12 @@ export function UserCreateView(props: UserCreateViewProps) {
                                         <RHFTextField name="firstName" label="First name" />
                                         <RHFTextField name="lastName" label="Last name" />
                                     </Stack>
-
+                                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+                                        <RHFTextField name="nic" label="NIC" /> 
+                                    </Stack>
+                                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+                                        <RHFTextField name="contactNumber" label="Contact Number" /> 
+                                    </Stack>
                                     <RHFTextField name="email" label="Email address" />
 
                                     <RHFTextField

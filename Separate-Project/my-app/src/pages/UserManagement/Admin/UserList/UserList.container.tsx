@@ -13,8 +13,8 @@ export default function UserListContainer() {
 
     const columns: GridColDef[] = [
         { field: 'id', headerName: 'ID', width: 100 },
-        { field: 'firstName', headerName: 'First name', width: 160 },
-        { field: 'lastName', headerName: 'Last name', width: 160 },
+        { field: 'firstName', headerName: 'First name', width: 200 },
+        { field: 'lastName', headerName: 'Last name', width: 200 },
         {
             field: 'age',
             headerName: 'Age',
@@ -26,13 +26,13 @@ export default function UserListContainer() {
             headerName: 'Full name',
             description: 'This column has a value getter and is not sortable.',
             sortable: false,
-            width: 200,
+            width: 250,
             valueGetter: (params: GridValueGetterParams) =>
                 `${params.row.firstName || ''} ${params.row.lastName || ''}`,
         },
         {
             field: "Actions",
-            width: 200,
+            width: 250,
             renderCell: () => {
                 return <>
                     <Stack direction="row" alignItems="center" justifyContent="space-between" mb={0}>
