@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { NavLink as RouterLink, matchPath, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { matchPath, NavLink as RouterLink, useLocation } from 'react-router-dom';
 // material
-import { alpha, useTheme, styled } from '@mui/material/styles';
-import { Box, List, Collapse, ListItemText, ListItemIcon, ListItemButton } from '@mui/material';
+import { Box, Collapse, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { alpha, styled, useTheme } from '@mui/material/styles';
 //
 import Iconify from './Iconify';
 
@@ -137,20 +137,51 @@ function NavItem({ item, active }) {
 
 NavSection.propTypes = {
   navConfig: PropTypes.array,
+  navConfigAdmin: PropTypes.array,
+  navConfigClient: PropTypes.array,
+
 };
 
-export default function NavSection({ navConfig, ...other }) {
+export default function NavSection({ navConfig, navConfigAdmin, navConfigClient, ...other }) {
   const { pathname } = useLocation();
+  const [UserType, setUserType] = useState("default")
 
   const match = (path) => (path ? !!matchPath({ path, end: false }, pathname) : false);
 
-  return (
-    <Box {...other}>
-      <List disablePadding sx={{ p: 1 }}>
-        {navConfig.map((item) => (
-          <NavItem key={item.title} item={item} active={match} />
-        ))}
-      </List>
-    </Box>
-  );
+
+  switch (UserType) {
+    case "admin":
+      return (
+        <Box {...other}>
+          <List disablePadding sx={{ p: 1 }}>
+            {navConfigAdmin.map((item) => (
+              <NavItem key={item.title} item={item} active={match} />
+            ))}
+          </List>
+        </Box>
+      );
+      break;
+    case "client":
+      return (
+        <Box {...other}>
+          <List disablePadding sx={{ p: 1 }}>
+            {navConfigClient.map((item) => (
+              <NavItem key={item.title} item={item} active={match} />
+            ))}
+          </List>
+        </Box>
+      );
+      break;
+    default:
+      return (
+        <Box {...other}>
+          <List disablePadding sx={{ p: 1 }}>
+            {navConfig.map((item) => (
+              <NavItem key={item.title} item={item} active={match} />
+            ))}
+          </List>
+        </Box>
+      );
+      break;
+  } 
 }

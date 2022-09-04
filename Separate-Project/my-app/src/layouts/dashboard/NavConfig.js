@@ -40,12 +40,7 @@ const navConfig = [
     title: 'Not found',
     path: '/404',
     icon: getIcon('eva:alert-triangle-fill'),
-  },
-  {
-    title: 'Feedback',
-    path: '/dashboard/customer-feedbacks',
-    icon: getIcon('eva:message-square-outline'),
-  },
+  }
 ];
 
 export default navConfig;

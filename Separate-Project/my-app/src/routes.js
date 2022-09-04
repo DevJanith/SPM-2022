@@ -11,6 +11,8 @@ import Register from './pages/Register';
 import Products from './pages/Products';
 import DashboardApp from './pages/DashboardApp';
 import Feedback from './pages/Feedback';
+import { UserManagement } from './pages/UserManagement/UserManagement';
+import { FeedBackManagement } from './pages/FeedBackManagement/FeedBackManagement';
 
 // ----------------------------------------------------------------------
 
@@ -23,13 +25,11 @@ export default function Router() {
         { path: 'app', element: <DashboardApp /> },
         { path: 'user', element: <User /> },
         { path: 'products', element: <Products /> },
-        { path: 'blog', element: <Blog /> },
-        {
-          path: 'customer-feedbacks',
-          element: <Feedback />,
-        },
+        { path: 'blog', element: <Blog /> }, 
+        { path: 'feedback-management/*', element: <FeedBackManagement /> }, 
+        { path: 'user-management/*', element: <UserManagement /> }, 
       ],
-    },
+    }, 
     {
       path: 'login',
       element: <Login />,
