@@ -1,6 +1,6 @@
 // material
 
-import { Container, Stack, Typography } from "@mui/material";
+import { CardMedia, Container, Stack, Typography } from "@mui/material";
 // components
 import dayjs from "dayjs";
 
@@ -37,7 +37,8 @@ import Iconify from "../../../components/Iconify";
 import Page from "../../../components/Page";
 import { getFeedbacks } from "../../../actions/feedback.action";
 import axios from "axios";
-import { getFeedbackReport } from "../../../api";
+import { PDFExport, savePDF } from "@progress/kendo-react-pdf";
+import nodataImage from "../../../assets/no-data.svg";
 
 export function FeedBackViewManagement(props) {
   // const {
@@ -49,6 +50,7 @@ export function FeedBackViewManagement(props) {
   const [reportData, setReportData] = React.useState([]);
   const [nodata, setNodata] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  const [reportButton, setReportButton] = React.useState(true);
 
   const dispatch = useDispatch();
 
@@ -124,7 +126,9 @@ export function FeedBackViewManagement(props) {
           setReportData(res.data.data);
           console.log(reportData);
           setNodata(false);
+          setReportButton(false);
         } else {
+          setReportButton(true);
           setNodata(true);
           setReportData([]);
           console.log(reportData);
@@ -136,6 +140,14 @@ export function FeedBackViewManagement(props) {
         setLoading(false);
       });
   }
+
+  const pdfExportComponent = React.useRef(null);
+
+  const generatePDF = () => {
+    if (pdfExportComponent.current) {
+      pdfExportComponent.current.save();
+    }
+  };
 
   return (
     <Page title="Dashboard: FeedBack">
@@ -244,7 +256,7 @@ export function FeedBackViewManagement(props) {
                     <TableBody>
                       {filterItems.map((row) => (
                         <TableRow
-                          key={row.name}
+                          key={row._id}
                           sx={{
                             "&:last-child td, &:last-child th": { border: 0 },
                           }}
@@ -324,15 +336,23 @@ export function FeedBackViewManagement(props) {
                     </Button>
                   </Stack>
                   <Button
+                    disabled={reportButton}
                     variant="outlined"
                     startIcon={getIcon("eva:arrow-circle-down-outline")}
                     sx={{ marginLeft: 2 }}
                     color="error"
+                    onClick={generatePDF}
                   >
                     Download as PDF
                   </Button>
                 </Grid>
-                <TableContainer component={Paper}>
+                {/* <PDFExport
+                  ref={pdfExportComponent}
+                  papersize="A4"
+                  fileName="feedback-report"
+                  margin="1cm"
+                > */}
+                <TableContainer component={Paper} id="reportTable">
                   <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                       <TableRow>
@@ -347,7 +367,7 @@ export function FeedBackViewManagement(props) {
                     <TableBody>
                       {reportData.map((row) => (
                         <TableRow
-                          key={row.name}
+                          key={row._id}
                           sx={{
                             "&:last-child td, &:last-child th": { border: 0 },
                           }}
@@ -365,6 +385,7 @@ export function FeedBackViewManagement(props) {
                     </TableBody>
                   </Table>
                 </TableContainer>
+                {/* </PDFExport> */}
 
                 {loading ? (
                   <Box sx={{ width: "100%", marginTop: 5 }}>
@@ -374,11 +395,74 @@ export function FeedBackViewManagement(props) {
 
                 {nodata ? (
                   <center>
-                    <Typography variant="h4" gutterBottom>
-                      --------- No Data ---------
+                    <img src={nodataImage} alt="No Data" />
+
+                    <Typography variant="h4" gutterBottom color="#E07171">
+                      No Data
                     </Typography>
                   </center>
                 ) : null}
+
+                {/* report */}
+
+                <Card
+                  sx={{
+                    position: "absolute",
+                    left: "-6000px",
+                    top: 0,
+                  }}
+                >
+                  <PDFExport
+                    ref={pdfExportComponent}
+                    papersize="A4"
+                    fileName="feedback-report"
+                    margin="1cm"
+                  >
+                    <Typography variant="h4" gutterBottom>
+                      Customer Feedback Report {startDate.toISOString()} -{" "}
+                      {endDate.toISOString()}
+                    </Typography>
+                    <TableContainer component={Paper} id="reportTable">
+                      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                        <TableHead>
+                          <TableRow>
+                            <TableCell>Name</TableCell>
+                            <TableCell align="right">Email</TableCell>
+                            <TableCell align="right">Mobile Number</TableCell>
+                            <TableCell align="right">Descriptions</TableCell>
+                            <TableCell align="right">Date</TableCell>
+                            <TableCell align="right">
+                              Rating (Out of 5)
+                            </TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {reportData.map((row) => (
+                            <TableRow
+                              key={row._id}
+                              sx={{
+                                "&:last-child td, &:last-child th": {
+                                  border: 0,
+                                },
+                              }}
+                            >
+                              <TableCell component="th" scope="row">
+                                {row.name}
+                              </TableCell>
+                              <TableCell align="right">{row.email}</TableCell>
+                              <TableCell align="right">{row.mobile}</TableCell>
+                              <TableCell align="right">
+                                {row.description}
+                              </TableCell>
+                              <TableCell align="right">{row.date}</TableCell>
+                              <TableCell align="right">{row.rating}</TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  </PDFExport>
+                </Card>
               </Card>
             </TabPanel>
           </TabContext>
