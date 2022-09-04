@@ -1,5 +1,5 @@
 // component
-import Iconify from '../../components/Iconify';
+import Iconify from "../../components/Iconify";
 
 // ----------------------------------------------------------------------
 
@@ -17,14 +17,19 @@ const navConfigTrader = [
   //   icon: getIcon('eva:people-fill'),
   // },
   {
-    title: 'item management',
-    path: '/dashboard/item-management',
-    icon: getIcon('eva:activity-fill'),
+    title: "item management",
+    path: "/dashboard/item-management",
+    icon: getIcon("eva:activity-fill"),
   },
   {
-    title: 'transaction management',
-    path: '/dashboard/transaction-management',
-    icon: getIcon('eva:paper-plane-fill'),
+    title: "transaction management",
+    path: "/dashboard/transaction-management",
+    icon: getIcon("eva:paper-plane-fill"),
+  },
+  {
+    title: "feedback management",
+    path: "/dashboard/feedback-management",
+    icon: getIcon("eva:message-circle-outline"),
   },
 ];
 

@@ -36,6 +36,7 @@
     ]
   },
   "dependencies": {
+    "@date-io/jalaali": "^2.15.0",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@faker-js/faker": "^6.1.2",
@@ -44,6 +45,7 @@
     "@material-ui/styles": "^4.11.5",
     "@mui/lab": "^5.0.0-alpha.77",
     "@mui/material": "^5.6.1",
+    "@mui/x-date-pickers": "^5.0.0",
     "@progress/kendo-drawing": "^1.16.3",
     "@progress/kendo-licensing": "^1.2.2",
     "@progress/kendo-react-pdf": "^5.3.0",
@@ -53,9 +55,12 @@
     "axios": "^0.27.2",
     "change-case": "^4.1.2",
     "date-fns": "^2.28.0",
+    "dayjs": "^1.11.5",
     "formik": "^2.2.9",
     "history": "^5.2.0",
     "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "moment-jalaali": "^0.9.6",
     "numeral": "^2.0.6",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
