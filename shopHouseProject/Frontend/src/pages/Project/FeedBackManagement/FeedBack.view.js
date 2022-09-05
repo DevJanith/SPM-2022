@@ -342,7 +342,7 @@ export function FeedBackView(props) {
           mb={5}
         >
           <Typography variant="h4" gutterBottom>
-            FeedBack Page
+            Feedback Page
           </Typography>
         </Stack>
 
@@ -507,7 +507,7 @@ export function FeedBackView(props) {
                   <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                       <TableRow>
-                        <TableCell>Name</TableCell>
+                        <TableCell align="right">Name</TableCell>
                         <TableCell align="right">Email</TableCell>
                         <TableCell align="right">Mobile Number</TableCell>
                         <TableCell align="right">Descriptions</TableCell>
