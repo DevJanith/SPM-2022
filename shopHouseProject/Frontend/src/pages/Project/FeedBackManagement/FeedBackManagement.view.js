@@ -54,6 +54,7 @@ export function FeedBackViewManagement(props) {
 
   const dispatch = useDispatch();
 
+  const [today, setToday] = React.useState(dayjs());
   //  admin report
   const [startDate, setStartDate] = React.useState(dayjs());
   const [endDate, setEndDate] = React.useState(dayjs());
@@ -418,10 +419,15 @@ export function FeedBackViewManagement(props) {
                     fileName="feedback-report"
                     margin="1cm"
                   >
+                    <center>
+                      <Typography variant="h2" gutterBottom>
+                        Shop House
+                      </Typography>
+                    </center>
                     <Typography variant="h4" gutterBottom color={"primary"}>
-                      Customer Feedback Report - From :
-                      {startDate.toISOString().substring(0, 10)} To :
-                      {endDate.toISOString().substring(0, 10)}
+                      Customer Feedback Report - From
+                      {" : " + startDate.toISOString().substring(0, 10)} To
+                      {" : " + endDate.toISOString().substring(0, 10)}
                     </Typography>
 
                     <TableContainer component={Paper} id="reportTable">
@@ -474,6 +480,45 @@ export function FeedBackViewManagement(props) {
                         </TableBody>
                       </Table>
                     </TableContainer>
+                    <Typography
+                      variant="body2"
+                      gutterBottom
+                      sx={{ marginTop: 5 }}
+                    >
+                      Report Generated On
+                      {" : " + today.format("YYYY-MM-DD HH:mm:ss")}
+                    </Typography>
+
+                    <Typography
+                      variant="body2"
+                      gutterBottom
+                      sx={{ marginTop: 5 }}
+                    >
+                      This report contains all the feedbacks sent from customers
+                      through the feedback form available in this web
+                      application. All of these details are valid and approved
+                      by the manager.
+                    </Typography>
+
+                    <Typography
+                      variant="body2"
+                      gutterBottom
+                      sx={{ marginTop: 5 }}
+                    >
+                      .................................
+                    </Typography>
+                    <Typography variant="body2" gutterBottom>
+                      Signature
+                    </Typography>
+                    <Box
+                      component="img"
+                      sx={{
+                        height: 50,
+                        width: 100,
+                      }}
+                      alt="Signature"
+                      src="@assets/signature.png"
+                    />
                   </PDFExport>
                 </Card>
               </Card>
