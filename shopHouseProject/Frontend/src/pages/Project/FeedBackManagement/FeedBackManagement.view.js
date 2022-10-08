@@ -418,20 +418,33 @@ export function FeedBackViewManagement(props) {
                     fileName="feedback-report"
                     margin="1cm"
                   >
-                    <Typography variant="h4" gutterBottom>
-                      Customer Feedback Report {startDate.toISOString()} -{" "}
-                      {endDate.toISOString()}
+                    <Typography variant="h4" gutterBottom color={"primary"}>
+                      Customer Feedback Report - From :
+                      {startDate.toISOString().substring(0, 10)} To :
+                      {endDate.toISOString().substring(0, 10)}
                     </Typography>
+
                     <TableContainer component={Paper} id="reportTable">
-                      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                      <Table
+                        sx={{ minWidth: 650, border: 1 }}
+                        aria-label="simple table"
+                      >
                         <TableHead>
-                          <TableRow>
-                            <TableCell>Name</TableCell>
-                            <TableCell align="right">Email</TableCell>
-                            <TableCell align="right">Mobile Number</TableCell>
-                            <TableCell align="right">Descriptions</TableCell>
-                            <TableCell align="right">Date</TableCell>
-                            <TableCell align="right">
+                          <TableRow sx={{ border: 1 }}>
+                            <TableCell sx={{ border: 1 }}>Name</TableCell>
+                            <TableCell align="right" sx={{ border: 1 }}>
+                              Email
+                            </TableCell>
+                            <TableCell align="right" sx={{ border: 1 }}>
+                              Mobile Number
+                            </TableCell>
+                            <TableCell align="right" sx={{ border: 1 }}>
+                              Descriptions
+                            </TableCell>
+                            <TableCell align="right" sx={{ border: 1 }}>
+                              Date
+                            </TableCell>
+                            <TableCell align="right" sx={{ border: 1 }}>
                               Rating (Out of 5)
                             </TableCell>
                           </TableRow>
