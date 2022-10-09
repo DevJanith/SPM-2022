@@ -55,6 +55,7 @@ export function FeedBackView(props) {
   const [loading, setLoading] = React.useState(false);
   const [data, setData] = React.useState([]);
   const [reloadVal, setReloadVal] = React.useState(false);
+  const [formValid, setFormValid] = React.useState(true);
 
   //   update form data
   const [nameUpdate, setNameUpdate] = React.useState();
@@ -127,20 +128,25 @@ export function FeedBackView(props) {
   }
 
   function handleSubmit(e) {
-    setLoading(true);
     e.preventDefault();
-    let userID = window.localStorage.getItem("userID");
-    const feedbackData = {
-      userID,
-      name,
-      email,
-      mobile,
-      description,
-      rating,
-    };
-    console.log(feedbackData);
+    if (formValid) {
+      setLoading(true);
 
-    dispatch(createFeedback(feedbackData));
+      let userID = window.localStorage.getItem("userID");
+      const feedbackData = {
+        userID,
+        name,
+        email,
+        mobile,
+        description,
+        rating,
+      };
+      console.log(feedbackData);
+
+      dispatch(createFeedback(feedbackData));
+    } else {
+      notifyInvalidMobileNumber();
+    }
   }
 
   useEffect(() => {
@@ -203,6 +209,18 @@ export function FeedBackView(props) {
 
   const notifyDeleted = () => {
     toast("Feedback Deleted!!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+
+  const notifyInvalidMobileNumber = () => {
+    toast("Invalid Mobile Number...", {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -412,8 +430,12 @@ export function FeedBackView(props) {
                         onChange={(e) => {
                           if (e.target.value <= 0) {
                             setMobileNo(0);
+                          } else if (e.target.value.length !== 9) {
+                            setMobileNo(e.target.value);
+                            setFormValid(false);
                           } else {
                             setMobileNo(e.target.value);
+                            setFormValid(true);
                           }
                         }}
                         sx={{
