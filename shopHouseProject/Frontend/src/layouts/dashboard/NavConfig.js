@@ -63,7 +63,7 @@ const navConfig = [
   },
   {
     title: 'tutorial management',
-    path: '/dashboard/tutorial-management',
+    path: '/dashboard/tutorial-management/list',
     icon: getIcon('eva:book-fill'),
   },
   // {
