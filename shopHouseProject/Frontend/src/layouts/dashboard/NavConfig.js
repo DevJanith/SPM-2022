@@ -66,6 +66,16 @@ const navConfig = [
     path: '/dashboard/tutorial-management',
     icon: getIcon('eva:book-fill'),
   },
+  {
+    title: "feedback",
+    path: "/dashboard/feedback",
+    icon: getIcon("eva:message-circle-outline"),
+  },
+  {
+    title: "feedback management",
+    path: "/dashboard/feedback-management",
+    icon: getIcon("eva:message-circle-outline"),
+  },
   // {
   //   title: 'login',
   //   path: '/login',

@@ -1,65 +1,65 @@
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink } from "react-router-dom";
 // @mui
-import { styled } from '@mui/material/styles';
-import { Card, Link, Container, Typography } from '@mui/material';
+import { styled } from "@mui/material/styles";
+import { Card, Link, Container, Typography } from "@mui/material";
 // hooks
-import useResponsive from '../hooks/useResponsive';
+import useResponsive from "../hooks/useResponsive";
 // components
-import Page from '../components/Page';
-import Logo from '../components/Logo';
+import Page from "../components/Page";
+import Logo from "../components/Logo";
 // sections
-import { RegisterForm } from '../sections/auth/register';
-import AuthSocial from '../sections/auth/AuthSocial';
+import { RegisterForm } from "../sections/auth/register";
+import AuthSocial from "../sections/auth/AuthSocial";
 
 // ----------------------------------------------------------------------
 
-const RootStyle = styled('div')(({ theme }) => ({
-  [theme.breakpoints.up('md')]: {
-    display: 'flex',
+const RootStyle = styled("div")(({ theme }) => ({
+  [theme.breakpoints.up("md")]: {
+    display: "flex",
   },
 }));
 
-const HeaderStyle = styled('header')(({ theme }) => ({
+const HeaderStyle = styled("header")(({ theme }) => ({
   top: 0,
   zIndex: 9,
   lineHeight: 0,
-  width: '100%',
-  display: 'flex',
-  alignItems: 'center',
-  position: 'absolute',
+  width: "100%",
+  display: "flex",
+  alignItems: "center",
+  position: "absolute",
   padding: theme.spacing(3),
-  justifyContent: 'space-between',
-  [theme.breakpoints.up('md')]: {
-    alignItems: 'flex-start',
+  justifyContent: "space-between",
+  [theme.breakpoints.up("md")]: {
+    alignItems: "flex-start",
     padding: theme.spacing(7, 5, 0, 7),
   },
 }));
 
 const SectionStyle = styled(Card)(({ theme }) => ({
-  width: '100%',
+  width: "100%",
   maxWidth: 464,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
   margin: theme.spacing(2, 0, 2, 2),
 }));
 
-const ContentStyle = styled('div')(({ theme }) => ({
+const ContentStyle = styled("div")(({ theme }) => ({
   maxWidth: 480,
-  margin: 'auto',
-  minHeight: '100vh',
-  display: 'flex',
-  justifyContent: 'center',
-  flexDirection: 'column',
+  margin: "auto",
+  minHeight: "100vh",
+  display: "flex",
+  justifyContent: "center",
+  flexDirection: "column",
   padding: theme.spacing(12, 0),
 }));
 
 // ----------------------------------------------------------------------
 
 export default function Register() {
-  const smUp = useResponsive('up', 'sm');
+  const smUp = useResponsive("up", "sm");
 
-  const mdUp = useResponsive('up', 'md');
+  const mdUp = useResponsive("up", "md");
 
   return (
     <Page title="Register">
@@ -68,7 +68,7 @@ export default function Register() {
           <Logo />
           {smUp && (
             <Typography variant="body2" sx={{ mt: { md: -2 } }}>
-              Already have an account? {''}
+              Already have an account? {""}
               <Link variant="subtitle2" component={RouterLink} to="/login">
                 Login
               </Link>
@@ -79,30 +79,39 @@ export default function Register() {
         {mdUp && (
           <SectionStyle>
             <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Find You are Product Through DS_Product Store
+              Find You are Product Through Shop House
             </Typography>
-            <img alt="register" src="/static/illustrations/illustration_register.png" />
+            <img
+              alt="register"
+              src="/static/illustrations/illustration_register.png"
+            />
           </SectionStyle>
         )}
 
         <Container>
           <ContentStyle>
             <Typography variant="h4" gutterBottom>
-              Sign Up to DS_Product Store
+              Sign Up to Shop House
             </Typography>
 
-            <Typography sx={{ color: 'text.secondary', mb: 5 }}>To browse wih out any restriction.</Typography>
+            <Typography sx={{ color: "text.secondary", mb: 5 }}>
+              To browse wih out any restriction.
+            </Typography>
 
             <AuthSocial />
 
             <RegisterForm />
 
-            <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
-              By registering, I agree to DS_Product Store&nbsp;
+            <Typography
+              variant="body2"
+              align="center"
+              sx={{ color: "text.secondary", mt: 3 }}
+            >
+              By registering, I agree to Shop House&nbsp;
               <Link underline="always" color="text.primary" href="#">
                 Terms of Service
               </Link>
-              {''}and{''}
+              {""}and{""}
               <Link underline="always" color="text.primary" href="#">
                 Privacy Policy
               </Link>
@@ -110,8 +119,8 @@ export default function Register() {
             </Typography>
 
             {!smUp && (
-              <Typography variant="body2" sx={{ mt: 3, textAlign: 'center' }}>
-                Already have an account?{' '}
+              <Typography variant="body2" sx={{ mt: 3, textAlign: "center" }}>
+                Already have an account?{" "}
                 <Link variant="subtitle2" to="/login" component={RouterLink}>
                   Login
                 </Link>

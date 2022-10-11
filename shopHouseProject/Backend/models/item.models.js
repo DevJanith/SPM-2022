@@ -18,7 +18,7 @@ const itemSchema = mongoose.Schema({
         require: true
     },
     itemPrice: {
-        type: number,
+        type: Number,
         require: true
     },
     itemDescription: {
@@ -47,6 +47,6 @@ const itemSchema = mongoose.Schema({
     }
 });
 
-const Item = mongoose.model('Item', itemSchema);
+const Item = mongoose.model("Item", itemSchema);
 
 export default Item;
