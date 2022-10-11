@@ -1,13 +1,12 @@
 import axios from "axios";
 
 const API = axios.create({
-  // baseURL: "http://localhost:8080"
-  baseURL: "http://localhost:5500",
-});
+    baseURL: "http://localhost:8000"
+})
 
 const ShopHouseAPI = axios.create({
-  baseURL: "http://localhost:5000/shop-house",
-});
+    baseURL: "http://localhost:5000/shop-house"
+})
 
 export const signIn = (formData) => API.post("/user/sign-in", formData);
 export const signUp = (formData) => API.post("/user/sign-up", formData);
