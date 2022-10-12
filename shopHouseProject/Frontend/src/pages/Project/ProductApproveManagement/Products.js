@@ -185,7 +185,6 @@ export default function Item(props) {
 
     const handleVerfiy = (data) => {
         console.log(data)
-        dis
     }
 
     return (
