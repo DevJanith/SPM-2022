@@ -47,6 +47,11 @@ const navConfig = [
     icon: getIcon('eva:activity-fill'),
   },
   {
+    title: 'Product Approve management',
+    path: '/dashboard/product-approve-management',
+    icon: getIcon('eva:activity-fill'),
+  },
+  {
     title: 'shop management',
     path: '/dashboard/shop-management',
     icon: getIcon('eva:shopping-cart-fill'),

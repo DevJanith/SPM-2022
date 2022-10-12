@@ -7,6 +7,7 @@ import LogoOnlyLayout from "./layouts/LogoOnlyLayout";
 import DashboardApp from "./pages/DashboardApp";
 import NotFound from "./pages/Page404";
 import ItemManagement from "./pages/Project/ItemManagement/ItemManagement";
+import ProductApproveManagement from "./pages/Project/ProductApproveManagement/ItemManagement";
 import PaymentManagement from "./pages/Project/PaymentManagement/PaymentManagement";
 import ShopManagement from "./pages/Project/ShopManagement/ShopManagement";
 import TransactionManagement from "./pages/Project/TransactionManagment/TransactionManagment";
@@ -37,6 +38,7 @@ export default function App() {
             <Route path="app" element={<DashboardApp />} />
             <Route path="user-management" element={<UserManagement />} />
             <Route path="item-management" element={<ItemManagement />} />
+            <Route path="product-approve-management" element={<ProductApproveManagement />} />
             <Route path="shop-management" element={<ShopManagement />} />
             <Route path="payment-management" element={<PaymentManagement />} />
             <Route
