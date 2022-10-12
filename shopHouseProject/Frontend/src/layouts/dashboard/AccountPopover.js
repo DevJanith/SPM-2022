@@ -1,8 +1,9 @@
-import { useRef, useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Avatar, Box, Divider, IconButton, MenuItem, Stack, Typography } from '@mui/material';
 // @mui
 import { alpha } from '@mui/material/styles';
-import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton } from '@mui/material';
+import { useRef, useState } from 'react';
+import { useDispatch } from "react-redux";
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // components
 import MenuPopover from '../../components/MenuPopover';
 // mocks_
@@ -31,7 +32,9 @@ const MENU_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
+  const dispatch = useDispatch();
   const anchorRef = useRef(null);
+  const navigate = useNavigate();
 
   const [open, setOpen] = useState(null);
 
@@ -40,6 +43,9 @@ export default function AccountPopover() {
   };
 
   const handleClose = () => {
+    dispatch({ type: "LOGOUT" });
+
+    navigate("/login");
     setOpen(null);
   };
 
@@ -91,13 +97,13 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <Stack sx={{ p: 1 }}>
+        {/* <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
             <MenuItem key={option.label} to={option.linkTo} component={RouterLink} onClick={handleClose}>
               {option.label}
             </MenuItem>
           ))}
-        </Stack>
+        </Stack> */}
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 

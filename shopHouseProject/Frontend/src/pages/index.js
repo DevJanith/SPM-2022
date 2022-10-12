@@ -1,7 +1,4 @@
-import SamplePage from "./SamplePage/Sample.container";
-import FeedBack from "./FeedBackManagement/FeedBack.container";
+import FeedBack from "./Project/FeedBackManagement/FeedBack.container";
+import FeedBackManagement from "./Project/FeedBackManagement/FeedBackManagement.container";
 
-export {
-    SamplePage,
-    FeedBack
-}
+export { FeedBack, FeedBackManagement };

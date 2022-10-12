@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-// form
-import { useForm, Controller } from 'react-hook-form';
+import { Form, FormikProvider, useFormik } from 'formik';
 // @mui
 import { Card, Stack, Divider, Checkbox, MenuItem, IconButton, CardHeader, FormControlLabel } from '@mui/material';
 // components
@@ -17,36 +16,28 @@ AppTasks.propTypes = {
 };
 
 export default function AppTasks({ title, subheader, list, ...other }) {
-  const { control } = useForm({
-    defaultValues: {
-      taskCompleted: ['2'],
+  const formik = useFormik({
+    initialValues: {
+      checked: [list[2].id],
+    },
+    onSubmit: (values) => {
+      console.log(values);
     },
   });
+
+  const { values, handleSubmit } = formik;
 
   return (
     <Card {...other}>
       <CardHeader title={title} subheader={subheader} />
-      <Controller
-        name="taskCompleted"
-        control={control}
-        render={({ field }) => {
-          const onSelected = (task) =>
-            field.value.includes(task) ? field.value.filter((value) => value !== task) : [...field.value, task];
 
-          return (
-            <>
-              {list.map((task) => (
-                <TaskItem
-                  key={task.id}
-                  task={task}
-                  checked={field.value.includes(task.id)}
-                  onChange={() => field.onChange(onSelected(task.id))}
-                />
-              ))}
-            </>
-          );
-        }}
-      />
+      <FormikProvider value={formik}>
+        <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
+          {list.map((task) => (
+            <TaskItem key={task.id} task={task} checked={values.checked.includes(task.id)} formik={formik} />
+          ))}
+        </Form>
+      </FormikProvider>
     </Card>
   );
 }
@@ -54,15 +45,14 @@ export default function AppTasks({ title, subheader, list, ...other }) {
 // ----------------------------------------------------------------------
 
 TaskItem.propTypes = {
+  formik: PropTypes.object,
   checked: PropTypes.bool,
-  onChange: PropTypes.func,
-  task: PropTypes.shape({
-    id: PropTypes.string,
-    label: PropTypes.string,
-  }),
+  task: PropTypes.object,
 };
 
-function TaskItem({ task, checked, onChange }) {
+function TaskItem({ formik, task, checked, ...other }) {
+  const { getFieldProps } = formik;
+
   const [open, setOpen] = useState(null);
 
   const handleOpenMenu = (event) => {
@@ -75,22 +65,22 @@ function TaskItem({ task, checked, onChange }) {
 
   const handleMarkComplete = () => {
     handleCloseMenu();
-    console.log('MARK COMPLETE', task.id);
+    console.log('MARK COMPLETE', task);
   };
 
   const handleShare = () => {
     handleCloseMenu();
-    console.log('SHARE', task.id);
+    console.log('SHARE', task);
   };
 
   const handleEdit = () => {
     handleCloseMenu();
-    console.log('EDIT', task.id);
+    console.log('EDIT', task);
   };
 
   const handleDelete = () => {
     handleCloseMenu();
-    console.log('DELETE', task.id);
+    console.log('DELETE', task);
   };
 
   return (
@@ -106,7 +96,7 @@ function TaskItem({ task, checked, onChange }) {
       }}
     >
       <FormControlLabel
-        control={<Checkbox checked={checked} onChange={onChange} />}
+        control={<Checkbox {...getFieldProps('checked')} value={task.id} checked={checked} {...other} />}
         label={task.label}
         sx={{ flexGrow: 1, m: 0 }}
       />
@@ -151,7 +141,7 @@ MoreMenuButton.propTypes = {
   actions: PropTypes.node.isRequired,
   onClose: PropTypes.func,
   onOpen: PropTypes.func,
-  open: PropTypes.bool,
+  open: PropTypes.object,
 };
 
 function MoreMenuButton({ actions, open, onOpen, onClose }) {
@@ -165,8 +155,6 @@ function MoreMenuButton({ actions, open, onOpen, onClose }) {
         open={Boolean(open)}
         anchorEl={open}
         onClose={onClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         arrow="right-top"
         sx={{
           mt: -0.5,
