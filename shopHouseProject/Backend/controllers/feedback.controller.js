@@ -29,10 +29,16 @@ export const createFeedback = async (req, res) => {
   try {
     await newFeedback.save();
 
-    res.json(newFeedback);
+    res.json({
+      data: newFeedback,
+      msg: "success",
+      code: "00",
+      type: "POST",
+    });
   } catch (error) {
     res.status(409);
     res.json({ message: error.message });
+    console.log(error);
   }
 };
 
@@ -77,7 +83,14 @@ export const getFeedbacks = async (req, res) => {
     const Feedbacks = await Feedback.find();
 
     res.status(200);
-    res.json(Feedbacks);
+
+    res.json({
+      data: Feedbacks,
+      msg: "success",
+      code: "00",
+      type: "GETALL",
+    });
+    // res.json(Feedbacks);
   } catch (error) {
     res.status(404);
     res.json({ message: error.message });

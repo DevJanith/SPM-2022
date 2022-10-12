@@ -7,7 +7,7 @@ router.post('/sign-in', signIn)
 router.post('/sign-up', signUp)
 router.get('/all', getUsers);
 router.get('/:id', getUser);
-router.post('/', getUserAccordingToType);
+router.get('/test/:userType', getUserAccordingToType);
 
 
 
