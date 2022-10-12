@@ -2,12 +2,11 @@ import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema({
     // name: {
-    //     type: String,
-    //     required: true
+    //     type: String, 
     // },
     email: {
         type: String,
-        required: true,
+        required: true, 
         unique: true
     },
     password: {
@@ -37,19 +36,8 @@ const userSchema = mongoose.Schema({
             required: true
         },
         userAddress: {
-            type: String,
-            required: true
-        },
-        userFaculty: {
             type: String
-        },
-        userField: {
-            type: String
-        },
-        // tags: e.target.value.split(',')
-        userSpecializedCriteria: [
-            String
-        ],
+        },   
         userType: {
             type: String,
             required: true
@@ -66,12 +54,22 @@ const userSchema = mongoose.Schema({
     updatedAt: {
         type: Date,
         default: new Date()
-    }
-    // id: {
-    //     type: String
-    // }
+    } 
 });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("Users", userSchema);
 
 export default User;
+
+// {
+// "email":"",
+// "password":"",
+// "confirmPassword":"",
+// "type":"",
+// "userFirstName":"",
+// "userLastName":"",
+// "userContactNumber":"",
+// "userAddressLine1":"",
+// "userAddressLine2":"",
+// "userAddressLine3":"",
+// }
