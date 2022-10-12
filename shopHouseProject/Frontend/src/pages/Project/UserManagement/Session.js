@@ -1,9 +1,9 @@
 //save login response > (user's name and token) to session storage
 export const authenticate = (response) => {
     if (window !== 'undefined') {
-        // console.log('authenticate', response) 
+        console.log('authenticate', response) 
         sessionStorage.setItem('token', JSON.stringify(response));
-        sessionStorage.setItem('userId', JSON.stringify(response.result.id));
+        sessionStorage.setItem('userId', JSON.stringify(response.result._id));
     }
 };
 
