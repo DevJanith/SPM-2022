@@ -163,19 +163,20 @@ export default function Item(props) {
         const useStyles = makeStyles({
             custom: {
                 color: "#FF0000",
-                fontSize: "35px",
+                fontSize: "25px",
                 fontWeight: "bold"
             },
 
             root: {
-                background: "linear-gradient(to right, #56ab2f 0%, #a8e063  51%, #56ab2f  100%)",
+                background: "#56ab2f",
                 border: 0,
                 borderRadius: 3,
                 boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
                 color: "#000000",
-                height: 30,
-                padding: "0 15px",
-                borderRadius: "25px"
+                height: 25,
+                padding: "0 12px",
+                borderRadius: "25px",
+                fontSize: "12px"
             }
 
         });
@@ -244,8 +245,8 @@ export default function Item(props) {
                                                 <TableCell align="left">
                                                     {/* <Button onClick={() => handleClickCartButton(row)} variant="success">  </Button> */}
 
-                                                    <Button /*onClick={() => handleRemoveItem(row)}*/ className={classes.root}>
-                                                            Verified
+                                                    <Button /*onClick={() => handleRemoveItem(row)}*/ className={classes.root} type="submit">
+                                                            Verify
                                                     </Button>
 
                                                     {/* <Switch
