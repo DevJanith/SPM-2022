@@ -139,49 +139,54 @@ export default function Item(props) {
     const filteredUsers = applySortFilter(items, getComparator(order, orderBy), filterName);
 
     const isUserNotFound = filteredUsers.length === 0;
-    
+
     //Switch function handles from here
-    
-        const [state, setState] = React.useState({
-          checkedA: false,
-          checkedB: true,
-        });
-      
-        const handleChange = (event) => {
-          setState({ ...state, [event.target.name]: event.target.checked });
-        };
-    
 
-        const Div = styled('div')(({ theme }) => ({
-            ...theme.typography.button,
-            backgroundColor: '#f2f2f2',
-            fontSize: '35px',
-            padding: theme.spacing(1),
-        }));
+    const [state, setState] = React.useState({
+        checkedA: false,
+        checkedB: true,
+    });
+
+    const handleChange = (event) => {
+        setState({ ...state, [event.target.name]: event.target.checked });
+    };
 
 
-        const useStyles = makeStyles({
-            custom: {
-                color: "#FF0000",
-                fontSize: "25px",
-                fontWeight: "bold"
-            },
+    const Div = styled('div')(({ theme }) => ({
+        ...theme.typography.button,
+        backgroundColor: '#f2f2f2',
+        fontSize: '35px',
+        padding: theme.spacing(1),
+    }));
 
-            root: {
-                background: "#56ab2f",
-                border: 0,
-                borderRadius: 3,
-                boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-                color: "#000000",
-                height: 25,
-                padding: "0 12px",
-                borderRadius: "25px",
-                fontSize: "12px"
-            }
 
-        });
+    const useStyles = makeStyles({
+        custom: {
+            color: "#FF0000",
+            fontSize: "25px",
+            fontWeight: "bold"
+        },
 
-        const classes = useStyles();
+        root: {
+            background: "#56ab2f",
+            border: 0,
+            borderRadius: 3,
+            boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+            color: "#000000",
+            height: 25,
+            padding: "0 12px",
+            borderRadius: "25px",
+            fontSize: "12px"
+        }
+
+    });
+
+    const classes = useStyles();
+
+    const handleVerfiy = (data) => {
+        console.log(data)
+        dis
+    }
 
     return (
         <Page title="Item">
@@ -245,8 +250,8 @@ export default function Item(props) {
                                                 <TableCell align="left">
                                                     {/* <Button onClick={() => handleClickCartButton(row)} variant="success">  </Button> */}
 
-                                                    <Button /*onClick={() => handleRemoveItem(row)}*/ className={classes.root} type="submit">
-                                                            Verify
+                                                    <Button onClick={() => handleVerfiy(row)} className={classes.root} type="button">
+                                                        Verify
                                                     </Button>
 
                                                     {/* <Switch
@@ -314,5 +319,6 @@ export default function Item(props) {
                 </Card>
             </Container>
         </Page>
+
     );
 }
