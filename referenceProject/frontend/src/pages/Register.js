@@ -79,7 +79,7 @@ export default function Register() {
         {mdUp && (
           <SectionStyle>
             <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Find You are Product Through DS_Product Store
+              Find You are Product Through Shop House
             </Typography>
             <img alt="register" src="/static/illustrations/illustration_register.png" />
           </SectionStyle>
@@ -88,7 +88,7 @@ export default function Register() {
         <Container>
           <ContentStyle>
             <Typography variant="h4" gutterBottom>
-              Sign Up to DS_Product Store
+              Sign Up to Shop House
             </Typography>
 
             <Typography sx={{ color: 'text.secondary', mb: 5 }}>To browse wih out any restriction.</Typography>
@@ -98,7 +98,7 @@ export default function Register() {
             <RegisterForm />
 
             <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
-              By registering, I agree to DS_Product Store&nbsp;
+              By registering, I agree to Shop House&nbsp;
               <Link underline="always" color="text.primary" href="#">
                 Terms of Service
               </Link>

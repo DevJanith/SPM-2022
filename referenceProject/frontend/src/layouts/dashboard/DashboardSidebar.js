@@ -79,7 +79,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
             <Logo />
           </Box>
           <Box sx={{ flex: '4', margin: "8px" }}>
-            <h3>DS_Product Store</h3>
+            <h3>Shop House</h3>
           </Box>
         </Box>
       </Box>

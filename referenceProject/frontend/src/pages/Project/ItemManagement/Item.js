@@ -1,6 +1,6 @@
 import {
     Card, Checkbox, Container, Stack, Table, TableBody,
-    TableCell, TableContainer,
+    TableCell, TableContainer,Button,Link,
     TablePagination, TableRow, Typography
 } from '@mui/material';
 import { filter } from 'lodash';
@@ -144,11 +144,11 @@ export default function Item(props) {
                     <Typography variant="h4" gutterBottom>
                         Item
                     </Typography>
-                    {/* <Link to={"/dashboard/item-create"} style={{ textDecoration: "none" }}>
-                        <Button variant="contained" to="#" startIcon={<Iconify icon="eva:plus-fill" />}>
-                            New Item
-                        </Button>
-                    </Link> */}
+                    <Link to={"...a11yProps(2)"} style={{ textDecoration: "none" }}>
+                    <Button variant="contained" to="#">
+                        Item Create
+                    </Button>
+                    </Link>
                 </Stack>
 
                 <Card>
