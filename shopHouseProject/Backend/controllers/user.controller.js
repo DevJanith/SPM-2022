@@ -1,25 +1,25 @@
-import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import uuid from 'react-uuid';
 
-import User from '../models/user.model.js'
+import User from '../models/user.model.js';
 
 export const signIn = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const existingUser = await User.findOne({ email });
+        if (email === null || typeof email == "undefined") return res.status(400).json({ message: "Email Field Required" })
+        if (password === null || typeof password == "undefined") return res.status(400).json({ message: "Password Field Required" })
 
+        const existingUser = await User.findOne({ email: email });
         if (!existingUser) return res.status(404).json({ message: "User doesn't exist" })
 
         const isPasswordCorrect = await bcrypt.compare(password, existingUser.password)
-
         if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid Credentials" })
 
         const token = jwt.sign({ email: existingUser.email, id: existingUser._id }, 'test', { expiresIn: "1h" })
 
         res.status(200).json({ result: existingUser, token })
-
-
     } catch (error) {
         res.status(500).json({ message: "Something went wrong" })
     }
@@ -31,49 +31,48 @@ export const signUp = async (req, res) => {
         password,
         confirmPassword,
         type,
-        firstName,
-        lastName,
-        userQNumber,
+        userFirstName,
+        userLastName,
         userContactNumber,
-        addressNumber,
-        addressLine1,
-        addressLine2,
-        userFaculty,
-        userField,
-        userSpecializedCriteria
+        userAddressLine1,
+        userAddressLine2,
+        userAddressLine3,
     } = req.body;
 
     try {
-        const existingUser = await User.findOne({ email });
+        if (type === null || typeof type == "undefined") return res.status(400).json({ message: "Type Field Required" })
+        if (email === null || typeof email == "undefined") return res.status(400).json({ message: "Email Field Required" })
+        if (password === null || typeof password == "undefined") return res.status(400).json({ message: "Password Field Required" })
+        if (userFirstName === null || typeof userFirstName == "undefined") return res.status(400).json({ message: "User First Name Field Required" })
+        if (userLastName === null || typeof userLastName == "undefined") return res.status(400).json({ message: "User Last Name Field Required" })
+        if (userContactNumber === null || typeof userContactNumber == "undefined") return res.status(400).json({ message: "User Contact Number Field Required" })
+
+        const existingUser = await User.findOne({ email: email })
 
         if (existingUser) return res.status(400).json({ message: "User already exist" })
+        if (password !== confirmPassword) return res.status(400).json({ message: "Password doesn't match" })
 
-        if (password !== confirmPassword) return res.status(400).json({ message: "Password don't match" })
+        const hashPassword = await bcrypt.hash(password, 12)
 
-        const hashedPassword = await bcrypt.hash(password, 12)
-
-        const result = await User.create(
-            {
-                email,
-                password: hashedPassword,
-                type,
-                userDetails: {
-                    userQNumber,
-                    userEmail: email,
-                    userName: `${firstName} ${lastName}`,
-                    userContactNumber,
-                    userAddress: `${addressNumber},${addressLine1},${addressLine2}`,
-                    userFaculty,
-                    userField,
-                    userSpecializedCriteria,
-                    userType: type
-                }
+        const userDetails = new User({
+            email: email,
+            password: hashPassword,
+            type: type,
+            userDetails: {
+                userQNumber: uuid(),
+                userEmail: email,
+                userName: `${userFirstName} ${userLastName}`,
+                userContactNumber: userContactNumber,
+                userAddress: `${userAddressLine1}, ${userAddressLine2}, ${userAddressLine3}`,
+                userType: type,
             }
-        )
+        })
 
-        const token = jwt.sign({ email: result.email, id: result._id }, 'test', { expiresIn: "1h" })
+        const userResult = await userDetails.save()
 
-        res.status(200).json({ result: result, token })
+        const token = jwt.sign({ email: userResult.email, id: userResult._id }, 'test', { expiresIn: "1h" })
+
+        res.status(200).json({ result: userResult, token })
 
     } catch (error) {
         res.status(500).json({ message: "Something went wrong" })
@@ -110,10 +109,9 @@ export const getUser = async (req, res) => {
 }
 
 export const getUserAccordingToType = async (req, res) => {
-    const { userType } = req.body;
-
+    const { userType } = req.params; 
     try {
-        const users = await User.find({ "type": { $in: userType } })
+        const users = await User.find({type: userType});
 
         res.status(200);
         res.json(users);
@@ -122,3 +120,4 @@ export const getUserAccordingToType = async (req, res) => {
         res.json({ "message": error.message });
     }
 }
+
