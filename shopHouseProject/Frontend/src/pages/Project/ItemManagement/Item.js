@@ -9,7 +9,8 @@ import Page from '../../../components/Page';
 import Scrollbar from '../../../components/Scrollbar';
 import SearchNotFound from '../../../components/SearchNotFound';
 import { ItemListHead, ItemListToolbar, ItemMoreMenu } from '../../../sections/@dashboard/item';
-
+import { Link } from 'react-router-dom';
+import { Button } from "@mui/material"
 
 const TABLE_HEAD = [
 
@@ -144,11 +145,11 @@ export default function Item(props) {
                     <Typography variant="h4" gutterBottom>
                         Item
                     </Typography>
-                    {/* <Link to={"/dashboard/item-create"} style={{ textDecoration: "none" }}>
-                        <Button variant="contained" to="#" startIcon={<Iconify icon="eva:plus-fill" />}>
+                    <Link to={"/dashboard/item-create"} style={{ textDecoration: "none" }}>
+                        <Button variant="contained" to="#">
                             New Item
                         </Button>
-                    </Link> */}
+                    </Link>
                 </Stack>
 
                 <Card>

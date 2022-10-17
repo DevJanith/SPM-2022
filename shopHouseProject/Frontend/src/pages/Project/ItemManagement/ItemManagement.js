@@ -133,6 +133,8 @@ export default function ItemManagement() {
                         <Tab label="Item" {...a11yProps(0)} />
                         <Tab label="Item Create" {...a11yProps(1)} />
                         <Tab label="Item Update" {...a11yProps(2)} />
+                        <Tab label="Item Report" {...a11yProps(3)} />
+
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>
@@ -173,6 +175,19 @@ export default function ItemManagement() {
                         notify={notify}
                     />
                 </TabPanel>
+                {/* <TabPanel value={value} index={3}>
+                    <ItemUpdate
+                        itemData={itemData}
+                        setItemData={setItemData}
+                        handleSubmit={handleSubmit}
+                        clear={clear}
+                        currentId={currentId}
+                        setCurrentId={setCurrentId}
+                        value={value}
+                        setValue={setValue}
+                        notify={notify}
+                    />
+                </TabPanel> */}
             </Box>
             <ToastContainer
                 position="top-right"
