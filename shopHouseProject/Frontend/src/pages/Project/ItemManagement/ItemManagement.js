@@ -80,7 +80,7 @@ export default function ItemManagement() {
 
     const items = useSelector((state) => state.itemReducer);
 
-    const itemFormData = useSelector((state) => (currentId ? state.itemReducer.find((data) => data.id === currentId) : null));
+    const itemFormData = useSelector((state) => (currentId ? state.itemReducer.find((data) => data._id === currentId) : null));
 
     useEffect(() => {
         if (itemFormData) {

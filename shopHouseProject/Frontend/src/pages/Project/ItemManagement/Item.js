@@ -170,13 +170,13 @@ export default function Item(props) {
                                 <TableBody>
                                     {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                                         // const { id, name, role, status, company, avatarUrl, isVerified } = row;
-                                        const { id, name, description, qty, price } = row;
+                                        const { _id, name, description, qty, price } = row;
                                         const isItemSelected = selected.indexOf(name) !== -1;
 
                                         return (
                                             <TableRow
                                                 hover
-                                                key={id}
+                                                key={_id}
                                                 tabIndex={-1}
                                                 role="checkbox"
                                                 selected={isItemSelected}
