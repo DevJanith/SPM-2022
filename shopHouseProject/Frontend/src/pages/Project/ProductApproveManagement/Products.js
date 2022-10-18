@@ -6,12 +6,14 @@ import {
 } from '@mui/material';
 import { filter } from 'lodash';
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import Page from '../../../components/Page';
 import Scrollbar from '../../../components/Scrollbar';
 import SearchNotFound from '../../../components/SearchNotFound';
 import { ItemListHead, ItemListToolbar, ItemMoreMenu } from '../../../sections/@dashboard/item';
 import { styled } from '@mui/material/styles';
 import { makeStyles } from "@material-ui/core/styles";
+import { updateProduct, createProduct } from "../../../../src/actions/product.action.js";
 
 const TABLE_HEAD = [
 
@@ -67,7 +69,7 @@ export default function Item(props) {
         setValue
     } = props;
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     // useEffect(() => {
     //     try {
@@ -185,6 +187,7 @@ export default function Item(props) {
 
     const handleVerfiy = (data) => {
         console.log(data)
+        dispatch(createProduct (data));
     }
 
     return (
@@ -194,11 +197,6 @@ export default function Item(props) {
 
                     <Div>{"Product List"}</Div>
 
-                    {/* <Link to={"/dashboard/item-create"} style={{ textDecoration: "none" }}>
-                        <Button variant="contained" to="#" startIcon={<Iconify icon="eva:plus-fill" />}>
-                            New Item
-                        </Button>
-                    </Link> */}
                 </Stack>
 
                 <Card>
@@ -218,7 +216,7 @@ export default function Item(props) {
                                 />
                                 <TableBody>
                                     {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                                        // const { id, name, role, status, company, avatarUrl, isVerified } = row;
+
                                         const { id, name, description, qty, price } = row;
                                         const isItemSelected = selected.indexOf(name) !== -1;
 
@@ -234,14 +232,7 @@ export default function Item(props) {
                                                 <TableCell padding="checkbox">
                                                     <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, name)} />
                                                 </TableCell>
-                                                {/* <TableCell component="th" scope="row" padding="none">
-                                                    <Stack direction="row" alignItems="center" spacing={2}>
-                                                        <Avatar alt={name} src={avatarUrl} />
-                                                        <Typography variant="subtitle2" noWrap>
-                                                            {name}
-                                                        </Typography>
-                                                    </Stack>
-                                                </TableCell> */}
+
                                                 <TableCell align="left">{name}</TableCell>
                                                 <TableCell align="left">{description}</TableCell>
                                                 <TableCell align="left">{qty}</TableCell>
@@ -250,7 +241,7 @@ export default function Item(props) {
                                                     {/* <Button onClick={() => handleClickCartButton(row)} variant="success">  </Button> */}
 
                                                     <Button onClick={() => handleVerfiy(row)} className={classes.root} type="button">
-                                                        Verify
+                                                        Approve
                                                     </Button>
 
                                                     {/* <Switch
