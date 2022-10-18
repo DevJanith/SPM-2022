@@ -5,3 +5,5 @@ export const FETCH_ALL = "FETCH_ALL";
 export const LIKE = "LIKE";
 export const FETCH_ONE = "FETCH_ONE";
 export const REPORT = "REPORT";
+export const UPDATEONAPPROVE = "UPDATEONAPPROVE";
+

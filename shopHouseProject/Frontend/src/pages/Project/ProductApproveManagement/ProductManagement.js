@@ -8,8 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { createItem, getItems, updateItem } from "../../../actions/item.action";
 import Page from '../../../components/Page';
 import Item from './Products';
-import ItemCreate from './ItemCreate';
-import ItemUpdate from './ItemUpdate';
+// import ItemCreate from './ItemCreate';
+// import ItemUpdate from './ItemUpdate';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -80,7 +80,7 @@ export default function ItemManagement() {
 
     const items = useSelector((state) => state.itemReducer);
 
-    const itemFormData = useSelector((state) => (currentId ? state.itemReducer.find((data) => data.id === currentId) : null));
+    const itemFormData = useSelector((state) => (currentId ? state.itemReducer.find((data) => data._id === currentId) : null));
 
     useEffect(() => {
         if (itemFormData) {
@@ -132,7 +132,6 @@ export default function ItemManagement() {
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                         <Tab label="Products" {...a11yProps(0)} />
                         <Tab label="Item Create" {...a11yProps(1)} />
-                        <Tab label="Item Update" {...a11yProps(2)} />
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>
@@ -148,7 +147,7 @@ export default function ItemManagement() {
                         setValue={setValue}
                     />
                 </TabPanel>
-                <TabPanel value={value} index={1}>
+                {/* <TabPanel value={value} index={1}>
                     <ItemCreate
                         itemData={itemData}
                         setItemData={setItemData}
@@ -172,7 +171,7 @@ export default function ItemManagement() {
                         setValue={setValue}
                         notify={notify}
                     />
-                </TabPanel>
+                </TabPanel> */}
             </Box>
             <ToastContainer
                 position="top-right"

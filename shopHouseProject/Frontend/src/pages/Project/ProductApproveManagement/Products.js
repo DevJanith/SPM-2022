@@ -1,19 +1,20 @@
-import React from 'react';
+import { makeStyles } from "@material-ui/core/styles";
 import {
     Button, Card, Checkbox, Container, Stack, Table, TableBody,
     TableCell, TableContainer,
-    TablePagination, TableRow, Typography
+    TablePagination, TableRow
 } from '@mui/material';
+import Alert from '@mui/material/Alert';
+import { styled } from '@mui/material/styles';
 import { filter } from 'lodash';
-import { useState } from "react";
+import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
+import { createProduct } from "../../../../src/actions/product.action.js";
 import Page from '../../../components/Page';
 import Scrollbar from '../../../components/Scrollbar';
 import SearchNotFound from '../../../components/SearchNotFound';
 import { ItemListHead, ItemListToolbar, ItemMoreMenu } from '../../../sections/@dashboard/item';
-import { styled } from '@mui/material/styles';
-import { makeStyles } from "@material-ui/core/styles";
-import { updateProduct, createProduct } from "../../../../src/actions/product.action.js";
+
 
 const TABLE_HEAD = [
 
@@ -21,10 +22,9 @@ const TABLE_HEAD = [
     { id: 'description', label: 'Description', alignRight: false },
     { id: 'qty', label: 'Quantity', alignRight: false },
     { id: 'price', label: 'price', alignRight: false },
-    { id: 'status', label: 'Status', alignRight: false },
+    { id: 'ProdStatus', label: 'Product Status', alignRight: false },
+    { id: 'action', label: 'Action', alignRight: false },
 ];
-
-
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -70,16 +70,6 @@ export default function Item(props) {
     } = props;
 
     const dispatch = useDispatch();
-
-    // useEffect(() => {
-    //     try {
-    //         dispatch(getItems());
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }, []);
-
-    // const items = useSelector((state) => state.itemReducer);
 
     const [page, setPage] = useState(0);
 
@@ -186,8 +176,7 @@ export default function Item(props) {
     const classes = useStyles();
 
     const handleVerfiy = (data) => {
-        console.log(data)
-        dispatch(createProduct (data));
+        dispatch(createProduct(data));
     }
 
     return (
@@ -217,13 +206,13 @@ export default function Item(props) {
                                 <TableBody>
                                     {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
 
-                                        const { id, name, description, qty, price } = row;
+                                        const { _id, name, description, qty, price, status } = row;
                                         const isItemSelected = selected.indexOf(name) !== -1;
 
                                         return (
                                             <TableRow
                                                 hover
-                                                key={id}
+                                                key={_id}
                                                 tabIndex={-1}
                                                 role="checkbox"
                                                 selected={isItemSelected}
@@ -237,28 +226,28 @@ export default function Item(props) {
                                                 <TableCell align="left">{description}</TableCell>
                                                 <TableCell align="left">{qty}</TableCell>
                                                 <TableCell align="left">{price}</TableCell>
+
+
+                                                {status == 1
+                                                    ?
+                                                    <>
+                                                        <TableCell align="left">
+                                                            <Alert severity="info">Pending Approval</Alert>
+                                                        </TableCell>
+                                                    </>
+                                                    :
+                                                    <>
+                                                        <TableCell align="left">
+                                                            <Alert severity="success">Approved</Alert>
+                                                        </TableCell>
+                                                    </>
+                                                }
                                                 <TableCell align="left">
-                                                    {/* <Button onClick={() => handleClickCartButton(row)} variant="success">  </Button> */}
-
-                                                    <Button onClick={() => handleVerfiy(row)} className={classes.root} type="button">
-                                                        Approve
+                                                    <Button onClick={() => handleVerfiy(row)} type="button" disabled={status == 1 ? false : true}>
+                                                        Approve Product
                                                     </Button>
-
-                                                    {/* <Switch
-                                                        checked={state.checkedA}
-                                                        onChange={handleChange}
-                                                        name="checkedA"
-                                                        inputProps={{ 'aria-label': 'secondary checkbox' }}
-                                                    /> */}
-
                                                 </TableCell>
 
-                                                {/* <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell> */}
-                                                {/* <TableCell align="left">
-                                                    <Label variant="ghost" color={(status === 'banned' && 'error') || 'success'}>
-                                                        {sentenceCase(status)}
-                                                    </Label>
-                                                </TableCell> */}
 
                                                 <TableCell align="right">
                                                     <ItemMoreMenu

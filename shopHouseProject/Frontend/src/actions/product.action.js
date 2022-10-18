@@ -1,12 +1,13 @@
 import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from '../constants/actionTypes.constants';
 
 import * as api from '../api/index.js';
+import { update } from 'lodash';
 
 //get All Products
 export const getProducts = () => async (dispatch) => {
     try {
-        const { data } = await api.fetchProducts(); 
-        
+        const { data } = await api.fetchProducts();
+
         dispatch({ type: FETCH_ALL, payload: data });
     } catch (error) {
         console.log(error.message);
@@ -16,8 +17,8 @@ export const getProducts = () => async (dispatch) => {
 //Get one Prodcut by ID
 export const getProduct = (id) => async (dispatch) => {
     try {
-        const { data } = await api.fetchOneProduct(id); 
-        
+        const { data } = await api.fetchOneProduct(id);
+
         dispatch({ type: FETCH_ALL, payload: data });
     } catch (error) {
         console.log(error.message);
@@ -29,7 +30,7 @@ export const createProduct = (product) => async (dispatch) => {
     try {
         const { data } = await api.createProduct(product);
 
-        dispatch({ type: CREATE, payload: data });
+        dispatch({ type: UPDATE, payload: data });
 
         // navigate('/dashboard/item', { replace: true });
     } catch (error) {
