@@ -112,7 +112,7 @@ export function FeedBackView(props) {
 
   function updateFeedBack(e) {
     e.preventDefault();
-    let id = window.localStorage.getItem("userID");
+    let id = window.sessionStorage.getItem("userId");
     const feedback = {
       userID: id,
       name: nameUpdate,
@@ -132,7 +132,7 @@ export function FeedBackView(props) {
     if (formValid) {
       setLoading(true);
 
-      let userID = window.localStorage.getItem("userID");
+      let userID = window.sessionStorage.getItem("userId");
       const feedbackData = {
         userID,
         name,
@@ -235,8 +235,8 @@ export function FeedBackView(props) {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:5000/shop-house/feedback/user/${window.localStorage.getItem(
-          "userID"
+        `http://localhost:5000/shop-house/feedback/user/${window.sessionStorage.getItem(
+          "userId"
         )}`
       )
       .then((res) => {
