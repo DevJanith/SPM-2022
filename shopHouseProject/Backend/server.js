@@ -51,6 +51,10 @@ app.use(cors());
 // });
 //end
 
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to Farm Portal Server" });
+});
+
 app.use("/shop-house/tutorial", tutorialRoutes);
 app.use("/shop-house/user", userRoutes);
 app.use("/shop-house/feedback", feedbackRoutes);
