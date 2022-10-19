@@ -1,25 +1,29 @@
+import DeleteIcon from '@mui/icons-material/Delete';
+import ApproveIcon from '@mui/icons-material/DoneAll';
+import EditIcon from '@mui/icons-material/Edit';
+import ViewIcon from '@mui/icons-material/Visibility';
 import {
-    Card, Checkbox, Container, Stack, Table, TableBody,
+    Card, Checkbox, Chip, Container, Grid, Stack, Table, TableBody,
     TableCell, TableContainer,
     TablePagination, TableRow, Typography
 } from '@mui/material';
+import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
 import { filter } from 'lodash';
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from '../../../actions/auth';
+import { useDispatch } from "react-redux";
+import { fetchUsers } from '../../../api';
 import Page from '../../../components/Page';
 import Scrollbar from '../../../components/Scrollbar';
 import SearchNotFound from '../../../components/SearchNotFound';
-import { ItemListHead, ItemListToolbar, ItemMoreMenu } from '../../../sections/@dashboard/item';
-
+import { ItemListHead, ItemListToolbar } from '../../../sections/@dashboard/item';
 
 const TABLE_HEAD = [
-
-    { id: 'name', label: 'Name', alignRight: false },
-    { id: 'email', label: 'Email (User-Name)', alignRight: false },
-    { id: 'type', label: 'Type', alignRight: false },
-    { id: 'createdAt', label: 'Created-At', alignRight: false },
-    { id: 'updatedAt', label: 'Updated-At', alignRight: false },
+    { id: 'name', label: 'Name', alignRight: false, align: "left" },
+    { id: 'email', label: 'Email (User-Name)', alignRight: false, align: "left" },
+    { id: 'type', label: 'Type', alignRight: false, align: "left" },
+    { id: 'states', label: 'Status', alignRight: false, align: "center" },
+    { id: 'action', label: 'Action', alignRight: true, align: "center" },
 ];
 
 
@@ -48,7 +52,7 @@ function applySortFilter(array, comparator, query) {
         return a[1] - b[1];
     });
     if (query) {
-        return filter(array, (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+        return filter(array, (_user) => _user.userDetails.userName.toLowerCase().indexOf(query.toLowerCase()) !== -1);
     }
     return stabilizedThis.map((el) => el[0]);
 }
@@ -57,21 +61,41 @@ export default function User() {
 
     const dispatch = useDispatch();
 
+    const [successData, setSuccessData] = useState()
+    const [errorData, setErrorData] = useState()
+    const [isSuccess, setIsSuccess] = useState(false)
+    const [isPending, setIsPending] = useState(false)
+    const [isError, setIsError] = useState(false)
+
+    const [users, setUsers] = useState({
+        users: []
+    })
+
+    const getUsers = async (values) => {
+        console.log(values);
+        setIsPending(true)
+
+        await dispatch(
+            fetchUsers()
+                .then((response) => { 
+                    setSuccessData(response.data)
+                    setUsers({ users: response.data })
+                    setIsPending(false)
+                    setIsSuccess(true)
+                })
+                .catch((errors) => {
+                    setErrorData(errors.response)
+                    setIsPending(false)
+                    setIsError(true)
+                }))
+    }
+
     useEffect(() => {
-        try {
-            dispatch(getUsers());
-        } catch (error) {
-            console.log(error);
-        }
-    }, []);
+        getUsers()
 
+        return
+    }, [])
 
-
-
-
-    const users = useSelector((state) => state.authReducer);
-
-    console.log(users?.users)
 
     const [page, setPage] = useState(0);
 
@@ -79,7 +103,7 @@ export default function User() {
 
     const [selected, setSelected] = useState([]);
 
-    const [orderBy, setOrderBy] = useState('name');
+    const [orderBy, setOrderBy] = useState('email');
 
     const [filterName, setFilterName] = useState('');
 
@@ -140,7 +164,7 @@ export default function User() {
                 <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
                     <Typography variant="h4" gutterBottom>
                         User
-                    </Typography> 
+                    </Typography>
                 </Stack>
 
                 <Card>
@@ -159,8 +183,8 @@ export default function User() {
                                     onSelectAllClick={handleSelectAllClick}
                                 />
                                 <TableBody>
-                                    {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => { 
-                                        const { id, name, email, type, createdAt, updatedAt } = row;
+                                    {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                                        const { id, name, email, type, states } = row;
                                         const isItemSelected = selected.indexOf(name) !== -1;
 
                                         return (
@@ -174,12 +198,62 @@ export default function User() {
                                             >
                                                 <TableCell padding="checkbox">
                                                     <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, name)} />
-                                                </TableCell> 
-                                                <TableCell align="left">{name}</TableCell>
+                                                </TableCell>
+                                                <TableCell align="left">{row.userDetails.userName}</TableCell>
                                                 <TableCell align="left">{email}</TableCell>
-                                                <TableCell align="left">{type}</TableCell>
-                                                <TableCell align="left">{createdAt}</TableCell>
-                                                <TableCell align="left">{updatedAt}</TableCell>   
+                                                <TableCell align="left">
+                                                    <Chip label={type} variant="outlined" />
+                                                </TableCell>
+                                                <TableCell align="left">
+                                                    {type == "trader" &&
+                                                        <>
+                                                            {states == 1 ?
+                                                                <>
+                                                                    <Alert severity="info">Pending Approval</Alert>
+                                                                </>
+                                                                :
+                                                                <>
+                                                                    <Alert severity="success">Approved</Alert>
+                                                                </>
+                                                            }
+                                                        </>
+                                                    }
+                                                    {type == "buyer" &&
+                                                        <>
+                                                            <Alert severity="success">Approved</Alert>
+                                                        </>
+                                                    }
+                                                    {type == "admin" &&
+                                                        <>
+                                                            <Alert severity="success">Approved</Alert>
+                                                        </>
+                                                    }
+
+                                                </TableCell>
+                                                <TableCell align="center">
+                                                    <Grid container spacing={0}>
+                                                        <Grid item md={3}>
+                                                            <IconButton aria-label="delete" size="large" style={{ border: "1px solid #c0c0c0", borderRadius: "10%" }}>
+                                                                <ViewIcon color='primary' />
+                                                            </IconButton>
+                                                        </Grid>
+                                                        <Grid item md={3}>
+                                                            <IconButton aria-label="delete" size="large" style={{ border: "1px solid #c0c0c0", borderRadius: "10%" }}>
+                                                                <EditIcon color='primary' />
+                                                            </IconButton>
+                                                        </Grid>
+                                                        <Grid item md={3}>
+                                                            <IconButton aria-label="delete" size="large" style={{ border: "1px solid #c0c0c0", borderRadius: "10%" }}>
+                                                                <ApproveIcon color='success' />
+                                                            </IconButton>
+                                                        </Grid>
+                                                        <Grid item md={3}>
+                                                            <IconButton aria-label="delete" size="large" style={{ border: "1px solid #c0c0c0", borderRadius: "10%" }}>
+                                                                <DeleteIcon color='error' />
+                                                            </IconButton>
+                                                        </Grid>
+                                                    </Grid>
+                                                </TableCell>
                                             </TableRow>
                                         );
                                     })}
