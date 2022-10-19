@@ -40,42 +40,63 @@ export const signUp = async (req, res) => {
     } = req.body;
 
     try {
-        if (type === null || typeof type == "undefined") return res.status(400).json({ message: "Type Field Required" })
-        if (email === null || typeof email == "undefined") return res.status(400).json({ message: "Email Field Required" })
-        if (password === null || typeof password == "undefined") return res.status(400).json({ message: "Password Field Required" })
-        if (userFirstName === null || typeof userFirstName == "undefined") return res.status(400).json({ message: "User First Name Field Required" })
-        if (userLastName === null || typeof userLastName == "undefined") return res.status(400).json({ message: "User Last Name Field Required" })
-        if (userContactNumber === null || typeof userContactNumber == "undefined") return res.status(400).json({ message: "User Contact Number Field Required" })
+        if (type === null || typeof type == "undefined") return res.status(400).json({ code: "02", message: "Type Field Required" })
+        if (email === null || typeof email == "undefined") return res.status(400).json({ code: "02", message: "Email Field Required" })
+        if (userFirstName === null || typeof userFirstName == "undefined") return res.status(400).json({ code: "02", message: "User First Name Field Required" })
+        if (userLastName === null || typeof userLastName == "undefined") return res.status(400).json({ code: "02", message: "User Last Name Field Required" })
+        if (userContactNumber === null || typeof userContactNumber == "undefined") return res.status(400).json({ code: "02", message: "User Contact Number Field Required" })
 
         const existingUser = await User.findOne({ email: email })
+        if (existingUser) return res.status(400).json({ code: "02", message: "User already exist" })
 
-        if (existingUser) return res.status(400).json({ message: "User already exist" })
-        if (password !== confirmPassword) return res.status(400).json({ message: "Password doesn't match" })
+        if (type == "buyer") {
+            if (password === null || typeof password == "undefined") return res.status(400).json({ code: "02", message: "Password Field Required" })
+            if (password !== confirmPassword) return res.status(400).json({ code: "02", message: "Password doesn't match" })
+            const hashPassword = await bcrypt.hash(password, 12)
 
-        const hashPassword = await bcrypt.hash(password, 12)
+            const userDetails = new User({
+                email: email,
+                password: hashPassword,
+                type: type,
+                userDetails: {
+                    userQNumber: uuid(),
+                    userEmail: email,
+                    userName: `${userFirstName} ${userLastName}`,
+                    userContactNumber: userContactNumber,
+                    userAddress: `${userAddressLine1}, ${userAddressLine2}, ${userAddressLine3}`,
+                    userType: type,
+                }
+            })
 
-        const userDetails = new User({
-            email: email,
-            password: hashPassword,
-            type: type,
-            userDetails: {
-                userQNumber: uuid(),
-                userEmail: email,
-                userName: `${userFirstName} ${userLastName}`,
-                userContactNumber: userContactNumber,
-                userAddress: `${userAddressLine1}, ${userAddressLine2}, ${userAddressLine3}`,
-                userType: type,
-            }
-        })
+            const userResult = await userDetails.save()
 
-        const userResult = await userDetails.save()
+            const token = jwt.sign({ email: userResult.email, id: userResult._id }, 'test', { expiresIn: "1h" })
 
-        const token = jwt.sign({ email: userResult.email, id: userResult._id }, 'test', { expiresIn: "1h" })
+            res.status(200).json({ code: "01", result: userResult, token })
+        } else if (type == "trader") {
+            const userDetails = new User({
+                email: email,
+                type: type,
+                userDetails: {
+                    userQNumber: uuid(),
+                    userEmail: email,
+                    userName: `${userFirstName} ${userLastName}`,
+                    userContactNumber: userContactNumber,
+                    userAddress: `${userAddressLine1}, ${userAddressLine2}, ${userAddressLine3}`,
+                    userType: type,
+                },
+                states: 2
+            })
 
-        res.status(200).json({ result: userResult, token })
+            const userResult = await userDetails.save()
+
+            const token = jwt.sign({ email: userResult.email, id: userResult._id }, 'test', { expiresIn: "1h" })
+
+            res.status(200).json({ code: "01", result: userResult, token })
+        }
 
     } catch (error) {
-        res.status(500).json({ message: "Something went wrong" })
+        res.status(500).json({ code: "00", message: "Something went wrong" })
     }
 }
 
@@ -109,9 +130,9 @@ export const getUser = async (req, res) => {
 }
 
 export const getUserAccordingToType = async (req, res) => {
-    const { userType } = req.params; 
+    const { userType } = req.params;
     try {
-        const users = await User.find({type: userType});
+        const users = await User.find({ type: userType });
 
         res.status(200);
         res.json(users);
