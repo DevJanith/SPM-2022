@@ -1,4 +1,11 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from '../constants/actionTypes.constants';
+import { 
+    FETCH_ALL, 
+    CREATE, 
+    UPDATE, 
+    DELETE, 
+    FETCH_ONE,
+    REPORT, 
+} from '../constants/actionTypes.constants';
 
 import * as api from '../api/index.js';
 import { update } from 'lodash';
@@ -19,7 +26,7 @@ export const getProduct = (id) => async (dispatch) => {
     try {
         const { data } = await api.fetchOneProduct(id);
 
-        dispatch({ type: FETCH_ALL, payload: data });
+        dispatch({ type: FETCH_ONE, payload: data });
     } catch (error) {
         console.log(error.message);
     }
@@ -59,3 +66,13 @@ export const deleteProduct = (id) => async (dispatch) => {
         console.log(error.message);
     }
 };
+
+export const getProductReport = (filter) => async (dispatch) => {
+    try {
+      const { data } = await api.getProductReport(filter);
+  
+      dispatch({ type: REPORT, payload: data });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };

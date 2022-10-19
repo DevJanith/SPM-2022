@@ -164,16 +164,13 @@ export const deleteProduct = async (req, res) => {
   }
 }
 
-
-/* 
-
 //get report data
-export const getFeedbackReport = async (req, res) => {
+export const getProductReport = async (req, res) => {
   const startDate = req.body.start;
   const endDate = req.body.end;
 
   try {
-    const Feedbacks = await Feedback.find({
+    const Products = await Product.find({
       date: {
         $gte: startDate,
         $lte: endDate,
@@ -184,13 +181,13 @@ export const getFeedbackReport = async (req, res) => {
 
     res.status(200);
 
-    if (Feedbacks.length != 0) {
+    if (Products.length != 0) {
       res.json({
         filter: {
           startDate,
           endDate,
         },
-        data: Feedbacks,
+        data: Products,
       });
     } else {
       res.json({
@@ -203,5 +200,3 @@ export const getFeedbackReport = async (req, res) => {
     res.json({ message: error.message });
   }
 };
-
-*/

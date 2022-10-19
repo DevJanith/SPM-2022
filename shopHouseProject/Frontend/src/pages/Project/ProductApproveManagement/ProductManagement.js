@@ -7,8 +7,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createItem, getItems, updateItem } from "../../../actions/item.action";
 import Page from '../../../components/Page';
-import Item from './Products';
-// import ItemCreate from './ItemCreate';
+import Product from './Products';
+import ProductsReport from './ProductsReport';
 // import ItemUpdate from './ItemUpdate';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -114,7 +114,7 @@ export default function ItemManagement() {
     };
 
     const notify = () => {
-        toast('Item Update Success!', {
+        toast('Product Update Success!', {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -131,11 +131,11 @@ export default function ItemManagement() {
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                         <Tab label="Products" {...a11yProps(0)} />
-                        <Tab label="Item Create" {...a11yProps(1)} />
+                        <Tab label="Products Report" {...a11yProps(1)} />
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>
-                    <Item
+                    <Product
                         items={items}
                         itemData={itemData}
                         setItemData={setItemData}
@@ -147,8 +147,8 @@ export default function ItemManagement() {
                         setValue={setValue}
                     />
                 </TabPanel>
-                {/* <TabPanel value={value} index={1}>
-                    <ItemCreate
+                <TabPanel value={value} index={1}>
+                    <ProductsReport
                         itemData={itemData}
                         setItemData={setItemData}
                         handleSubmit={handleSubmit}
@@ -159,7 +159,7 @@ export default function ItemManagement() {
                         setValue={setValue}
                     />
                 </TabPanel>
-                <TabPanel value={value} index={2}>
+                {/* <TabPanel value={value} index={2}>
                     <ItemUpdate
                         itemData={itemData}
                         setItemData={setItemData}

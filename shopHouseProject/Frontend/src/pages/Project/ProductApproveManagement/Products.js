@@ -13,7 +13,7 @@ import { createProduct } from "../../../../src/actions/product.action.js";
 import Page from '../../../components/Page';
 import Scrollbar from '../../../components/Scrollbar';
 import SearchNotFound from '../../../components/SearchNotFound';
-import { ItemListHead, ItemListToolbar, ItemMoreMenu } from '../../../sections/@dashboard/item';
+import { ItemListHead, ItemListToolbar, ItemMoreMenu, ProductMoreMenu } from '../../../sections/@dashboard/item';
 
 
 const TABLE_HEAD = [
@@ -243,7 +243,7 @@ export default function Item(props) {
                                                     </>
                                                 }
                                                 <TableCell align="left">
-                                                    <Button onClick={() => handleVerfiy(row)} type="button" disabled={status == 1 ? false : true}>
+                                                    <Button onClick={() => handleVerfiy(row)} type="button" disabled={status == 1 ? false : true} /*className={classes.root}*/>
                                                         Approve Product
                                                     </Button>
                                                 </TableCell>

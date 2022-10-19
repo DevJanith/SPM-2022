@@ -54,3 +54,4 @@ export const createProduct = (newProduct) =>
 export const deleteProduct = (id) => ShopHouseAPI.delete(`/product/${id}`);
 export const updateProduct = (id, newProduct) =>
   ShopHouseAPI.put(`/product/${id}`, newProduct);
+export const getProductReport = (filter) => ShopHouseAPI.post("/product/report", filter);
