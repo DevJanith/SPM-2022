@@ -3,7 +3,7 @@ import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Form, FormikProvider, useFormik } from 'formik';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as Yup from 'yup';
@@ -15,6 +15,7 @@ export default function TraderRegisterForm(props) {
     userType,
     setUserType
   } = props
+  
   const dispatch = useDispatch();
   let navigate = useNavigate()
 
