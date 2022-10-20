@@ -52,7 +52,7 @@ export default function ItemListHead({
         {headLabel.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.alignRight ? 'right' : 'left'}
+            align={(typeof headCell.align != "undefined" && headCell.align != null) ? headCell.align : 'left'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel

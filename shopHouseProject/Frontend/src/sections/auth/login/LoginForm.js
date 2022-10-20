@@ -1,23 +1,54 @@
 import { LoadingButton } from '@mui/lab';
-// material
 import { Checkbox, FormControlLabel, IconButton, InputAdornment, Link, Stack, TextField } from '@mui/material';
 import { Form, FormikProvider, useFormik } from 'formik';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from "react-redux";
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import { signIn } from "../../../actions/auth";
-// component
+import { authenticate } from '../../../pages/Project/UserManagement/Session';
+import { signIn } from "../../../api";
 import Iconify from '../../../components/Iconify';
-
-
-// ----------------------------------------------------------------------
 
 export default function LoginForm() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  let navigate = useNavigate()
 
+  const [successData, setSuccessData] = useState()
+  const [errorData, setErrorData] = useState()
+  const [isSuccess, setIsSuccess] = useState(false)
+  const [isPending, setIsPending] = useState(false)
+  const [isError, setIsError] = useState(false)
   const [showPassword, setShowPassword] = useState(false);
+
+  const LoginUser = async (values) => {
+    console.log(values);
+    setIsPending(true)
+
+    await dispatch(
+      signIn(values)
+        .then((response) => {
+          console.log(response);
+          authenticate(response.data)
+          setSuccessData(response.data)
+          setIsPending(false)
+          setIsSuccess(true)
+        })
+        .catch((errors) => {
+          console.log(errors);
+          setErrorData(errors.response)
+          setIsPending(false)
+          setIsError(true)
+        }))
+  }
+
+  useEffect(() => {
+    // if (isSuccess == true || isError == true) {
+    //   console.log("form sent to initial state");
+    // }
+    if(isSuccess){
+      navigate('/dashboard/app', { replace: true }); 
+    }
+  }, [isSuccess, isError])
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
@@ -31,9 +62,9 @@ export default function LoginForm() {
       remember: true,
     },
     validationSchema: LoginSchema,
-    onSubmit: (data) => {
-      console.log("test login click")
-      dispatch(signIn(data, navigate));
+    onSubmit: (values) => { 
+      setIsPending(true)
+      LoginUser(values)
     },
   });
 
@@ -88,7 +119,7 @@ export default function LoginForm() {
           </Link>
         </Stack>
 
-        <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
+        <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isPending}>
           Login
         </LoadingButton>
       </Form>
