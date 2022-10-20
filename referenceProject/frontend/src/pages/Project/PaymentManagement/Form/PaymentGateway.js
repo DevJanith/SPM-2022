@@ -28,7 +28,7 @@ export default function App(props) {
             key: "rzp_test_D3W4p7Cxnhcr7W",
             amount: "105864",
             currency: "LKR",
-            name: "DS_Product Store",
+            name: "Shop House",
             description: "products",
             // order_id: order.id,
             handler: (res) => {

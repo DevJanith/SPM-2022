@@ -6,7 +6,8 @@ import {
 import { filter } from 'lodash';
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getItems } from "../../../actions/item.action";
+// import { getItems } from "../../../actions/item.action";
+import { getProducts } from "../../../actions/product.action.js";
 import Page from '../../../components/Page';
 import Scrollbar from '../../../components/Scrollbar';
 import SearchNotFound from '../../../components/SearchNotFound';
@@ -65,7 +66,7 @@ export default function ProductList(props) {
 
     useEffect(() => {
         try {
-            dispatch(getItems());
+            dispatch(getProducts());
         } catch (error) {
             console.log(error);
         }

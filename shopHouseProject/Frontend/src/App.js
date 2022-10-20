@@ -8,6 +8,7 @@ import { FeedBack, FeedBackManagement } from "./pages";
 import DashboardApp from "./pages/DashboardApp";
 import NotFound from "./pages/Page404";
 import ItemManagement from "./pages/Project/ItemManagement/ItemManagement";
+import ProductApproveManagement from "./pages/Project/ProductApproveManagement/ProductManagement";
 import PaymentManagement from "./pages/Project/PaymentManagement/PaymentManagement";
 import ShopManagement from "./pages/Project/ShopManagement/ShopManagement";
 import TransactionManagement from "./pages/Project/TransactionManagment/TransactionManagment";
@@ -43,6 +44,7 @@ export default function App() {
             <Route path="user-management/view/:id" element={<UserView />} />
             <Route path="user-management/edit/:id" element={<UserEdit />} />
             <Route path="item-management" element={<ItemManagement />} />
+            <Route path="product-approve-management" element={<ProductApproveManagement />} />
             <Route path="shop-management" element={<ShopManagement />} />
             <Route path="payment-management" element={<PaymentManagement />} />
             <Route

@@ -65,7 +65,7 @@ const PaymentInvoice = (props) => {
                     <div style={{ margin: "20px 0 20px", display: "flex", justifyContent: "space-between" }}>
                         <div style={{ flex: "4" }}>
                             <div>
-                                <h3>DS_Product Store</h3>
+                                <h3>Shop House</h3>
                                 <div  >
                                     <span style={{ fontSize: "14px" }}>Email : </span>
                                     <span style={{ fontSize: "12px" }}>ds_productStore@gmail.com</span>
@@ -136,7 +136,7 @@ const PaymentInvoice = (props) => {
                     </div>
                     <div class="invoice-footer">
                         <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
-                            I agree to DS_Product Store&nbsp;
+                            I agree to Shop House&nbsp;
                             <Link underline="always" color="text.primary" href="#">
                                 Terms of Service ,
                             </Link>
