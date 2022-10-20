@@ -7,9 +7,10 @@ import LogoOnlyLayout from "./layouts/LogoOnlyLayout";
 import { FeedBack, FeedBackManagement } from "./pages";
 import DashboardApp from "./pages/DashboardApp";
 import NotFound from "./pages/Page404";
+import { Buyer } from "./pages/Project/Buyer/Buyer";
 import ItemManagement from "./pages/Project/ItemManagement/ItemManagement";
-import ProductApproveManagement from "./pages/Project/ProductApproveManagement/ProductManagement";
 import PaymentManagement from "./pages/Project/PaymentManagement/PaymentManagement";
+import ProductApproveManagement from "./pages/Project/ProductApproveManagement/ProductManagement";
 import ShopManagement from "./pages/Project/ShopManagement/ShopManagement";
 import TransactionManagement from "./pages/Project/TransactionManagment/TransactionManagment";
 import TutorialManagement from "./pages/Project/TutorialManagement/TutorialManagement";
@@ -47,6 +48,7 @@ export default function App() {
             <Route path="product-approve-management" element={<ProductApproveManagement />} />
             <Route path="shop-management" element={<ShopManagement />} />
             <Route path="payment-management" element={<PaymentManagement />} />
+            <Route path={`buyer/*`} element={<Buyer />} />
             <Route
               path="transaction-management"
               element={<TransactionManagement />}

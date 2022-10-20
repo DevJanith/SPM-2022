@@ -4,13 +4,15 @@ import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import { Stripe } from "stripe";
+import uuid from 'react-uuid';
+
 
 //import routes
 import feedbackRoutes from "./routes/feedback.routes.js";
 import itemRoutes from "./routes/item.routes.js";
+import productRoutes from "./routes/product.routes.js";
 import tutorialRoutes from "./routes/tutorial.routes.js";
 import userRoutes from "./routes/user.routes.js";
-import productRoutes from "./routes/product.routes.js";
 
 const app = express();
 dotenv.config();
@@ -56,6 +58,36 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to Farm Portal Server" });
 });
+
+app.post("/payment", (req, res) => {
+  const { product, token } = req.body;
+  console.log("Product", product);
+  console.log("Price", product.price);
+  // To avoid duplication for payments
+  const idImpotencyKey = uuid();
+  return stripe.customers.create({
+    email: token.email,
+    source: token.id
+  })
+    .then(customer => {
+      stripe.charger.create({
+        amount: product.price * 100,
+        currency: 'usd',
+        customer: customer.id,
+        receipt_email: token.email,
+        description: `purchase of $(product.name)`,
+        shipping: {
+          name: token.card.name,
+          address: {
+            country: token.card.address_country
+          }
+        }
+      }, { idImpotencyKey })
+    })
+    .then(result => res.status(200).json(result))
+    .catch(err => { console.log(err) })
+})
+
 
 app.use("/shop-house/tutorial", tutorialRoutes);
 app.use("/shop-house/user", userRoutes);

@@ -8,6 +8,10 @@ const ShopHouseAPI = axios.create({
   baseURL: "http://localhost:5000/shop-house"
 })
 
+const APIPayment = axios.create({
+  baseURL: "http://localhost:5000"
+})
+
 // export const signIn = (formData) => API.post("/user/sign-in", formData);
 // export const signUp = (formData) => API.post("/user/sign-up", formData);
 // export const fetchUsers = () => API.get(`/user`);
@@ -19,6 +23,8 @@ export const fetchUser = (id) => ShopHouseAPI.get(`/user/${id}`);
 export const fetchUserAccordingTopType = (userType) => ShopHouseAPI.get(`/user/${userType}`);
 export const userUpdate = (id, data) => ShopHouseAPI.put(`/user/${id}`, data);
 export const userDelete = (id) => ShopHouseAPI.delete(`/user/${id}`);
+
+export const payment = (data) => APIPayment.post("/payment", data)
 
 // export const fetchItems = () => API.get(`/item`);
 // export const createItem = (newItem) => API.post(`/item`, newItem);
