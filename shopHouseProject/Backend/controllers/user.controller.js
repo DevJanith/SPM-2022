@@ -123,7 +123,10 @@ export const getUser = async (req, res) => {
         const user = await User.findById(id);
 
         res.status(200);
-        res.json(user);
+        res.json({
+            code: "01",
+            result: user
+        });
     } catch (error) {
         res.status(404);
         res.json({ "message": error.message });

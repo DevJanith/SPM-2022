@@ -12,11 +12,13 @@ import IconButton from '@mui/material/IconButton';
 import { filter } from 'lodash';
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { fetchUsers } from '../../../api';
+import { useNavigate } from 'react-router-dom';
+import { fetchUsers, userDelete } from '../../../api';
 import Page from '../../../components/Page';
 import Scrollbar from '../../../components/Scrollbar';
 import SearchNotFound from '../../../components/SearchNotFound';
 import { ItemListHead, ItemListToolbar } from '../../../sections/@dashboard/item';
+import Tooltip from '@mui/material/Tooltip';
 
 const TABLE_HEAD = [
     { id: 'name', label: 'Name', alignRight: false, align: "left" },
@@ -60,12 +62,31 @@ function applySortFilter(array, comparator, query) {
 export default function User() {
 
     const dispatch = useDispatch();
+    let navigate = useNavigate()
 
     const [successData, setSuccessData] = useState()
     const [errorData, setErrorData] = useState()
     const [isSuccess, setIsSuccess] = useState(false)
     const [isPending, setIsPending] = useState(false)
     const [isError, setIsError] = useState(false)
+
+    const [successDeleteData, setSuccessDeleteData] = useState()
+    const [errorDeleteData, setErrorDeleteData] = useState()
+    const [isDeleteSuccess, setIsDeleteSuccess] = useState(false)
+    const [isDeletePending, setIsDeletePending] = useState(false)
+    const [isDeleteError, setIsDeleteError] = useState(false)
+
+    const [successViewData, setSuccessViewData] = useState()
+    const [errorViewData, setErrorViewData] = useState()
+    const [isViewSuccess, setIsViewSuccess] = useState(false)
+    const [isViewPending, setIsViewPending] = useState(false)
+    const [isViewError, setIsViewError] = useState(false)
+
+    const [successEditData, setSuccessEditData] = useState()
+    const [errorEditData, setErrorEditData] = useState()
+    const [isEditSuccess, setIsEditSuccess] = useState(false)
+    const [isEditPending, setIsEditPending] = useState(false)
+    const [isEditError, setIsEditError] = useState(false)
 
     const [users, setUsers] = useState({
         users: []
@@ -77,7 +98,7 @@ export default function User() {
 
         await dispatch(
             fetchUsers()
-                .then((response) => { 
+                .then((response) => {
                     setSuccessData(response.data)
                     setUsers({ users: response.data })
                     setIsPending(false)
@@ -90,11 +111,28 @@ export default function User() {
                 }))
     }
 
+    const deleteUser = async (values) => {
+        console.log(values);
+        setIsPending(true)
+
+        await dispatch(
+            userDelete(values)
+                .then((response) => {
+                    setSuccessDeleteData(response.data)
+                    setIsDeletePending(false)
+                    setIsDeleteSuccess(true)
+                })
+                .catch((errors) => {
+                    setErrorDeleteData(errors.response)
+                    setIsDeletePending(false)
+                    setIsDeleteError(true)
+                }))
+    }
+
     useEffect(() => {
         getUsers()
-
         return
-    }, [])
+    }, [isDeleteSuccess])
 
 
     const [page, setPage] = useState(0);
@@ -159,11 +197,11 @@ export default function User() {
     const isUserNotFound = filteredUsers.length === 0;
 
     return (
-        <Page title="Item">
+        <Page title="User-Management">
             <Container>
                 <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
                     <Typography variant="h4" gutterBottom>
-                        User
+                        User Management
                     </Typography>
                 </Stack>
 
@@ -172,7 +210,7 @@ export default function User() {
 
                     <Scrollbar>
                         <TableContainer sx={{ minWidth: 800 }}>
-                            <Table>
+                            <Table >
                                 <ItemListHead
                                     order={order}
                                     orderBy={orderBy}
@@ -184,13 +222,13 @@ export default function User() {
                                 />
                                 <TableBody>
                                     {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                                        const { id, name, email, type, states } = row;
+                                        const { _id, name, email, type, states } = row;
                                         const isItemSelected = selected.indexOf(name) !== -1;
 
                                         return (
                                             <TableRow
                                                 hover
-                                                key={id}
+                                                key={_id}
                                                 tabIndex={-1}
                                                 role="checkbox"
                                                 selected={isItemSelected}
@@ -209,11 +247,11 @@ export default function User() {
                                                         <>
                                                             {states == 1 ?
                                                                 <>
-                                                                    <Alert severity="info">Pending Approval</Alert>
+                                                                    <Alert severity="success">Approved</Alert>
                                                                 </>
                                                                 :
                                                                 <>
-                                                                    <Alert severity="success">Approved</Alert>
+                                                                    <Alert severity="info">Pending Approval</Alert>
                                                                 </>
                                                             }
                                                         </>
@@ -233,24 +271,43 @@ export default function User() {
                                                 <TableCell align="center">
                                                     <Grid container spacing={0}>
                                                         <Grid item md={3}>
-                                                            <IconButton aria-label="delete" size="large" style={{ border: "1px solid #c0c0c0", borderRadius: "10%" }}>
-                                                                <ViewIcon color='primary' />
-                                                            </IconButton>
+                                                            <Tooltip title="View">
+                                                                <IconButton aria-label="delete" size="large" style={{ border: "1px solid #c0c0c0", borderRadius: "10%" }}
+                                                                    onClick={() => { navigate(`/dashboard/user-management/view/${_id}`) }}
+                                                                >
+                                                                    <ViewIcon color='primary' />
+                                                                </IconButton>
+                                                            </Tooltip>
                                                         </Grid>
                                                         <Grid item md={3}>
-                                                            <IconButton aria-label="delete" size="large" style={{ border: "1px solid #c0c0c0", borderRadius: "10%" }}>
-                                                                <EditIcon color='primary' />
-                                                            </IconButton>
+                                                            <Tooltip title="Edit">
+                                                                <IconButton aria-label="delete" size="large" style={{ border: "1px solid #c0c0c0", borderRadius: "10%" }}
+                                                                   onClick={() => { navigate(`/dashboard/user-management/edit/${_id}`) }}
+                                                                >
+                                                                    <EditIcon color='primary' />
+                                                                </IconButton>
+                                                            </Tooltip>
                                                         </Grid>
                                                         <Grid item md={3}>
-                                                            <IconButton aria-label="delete" size="large" style={{ border: "1px solid #c0c0c0", borderRadius: "10%" }}>
-                                                                <ApproveIcon color='success' />
-                                                            </IconButton>
+                                                            <Tooltip title="Approve">
+                                                                <IconButton disabled={(type == "buyer" || type == "admin" || states == 1) && true} aria-label="delete" size="large"
+                                                                    style={
+                                                                        (type == "buyer" || type == "admin" || states == 1) ?
+                                                                            { border: "1px solid #c0c0c0", borderRadius: "10%", backgroundColor: "#e5e5e5" }
+                                                                            :
+                                                                            { border: "1px solid #c0c0c0", borderRadius: "10%" }
+                                                                    }
+                                                                    onClick={() => { navigate(`/dashboard/user-management/approve/${_id}`) }}>
+                                                                    <ApproveIcon color='success' />
+                                                                </IconButton>
+                                                            </Tooltip>
                                                         </Grid>
                                                         <Grid item md={3}>
-                                                            <IconButton aria-label="delete" size="large" style={{ border: "1px solid #c0c0c0", borderRadius: "10%" }}>
-                                                                <DeleteIcon color='error' />
-                                                            </IconButton>
+                                                            <Tooltip title="Delete">
+                                                                <IconButton aria-label="delete" size="large" style={{ border: "1px solid #c0c0c0", borderRadius: "10%" }} onClick={() => deleteUser(_id)}>
+                                                                    <DeleteIcon color='error' />
+                                                                </IconButton>
+                                                            </Tooltip>
                                                         </Grid>
                                                     </Grid>
                                                 </TableCell>
