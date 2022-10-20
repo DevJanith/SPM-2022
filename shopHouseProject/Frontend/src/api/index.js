@@ -45,3 +45,13 @@ export const getFeedbackReport = (filter) => ShopHouseAPI.post("/feedback/report
 
 
 export const fetchTutorials = () => ShopHouseAPI.get(`/tutorial`);
+
+//product
+export const fetchProducts = () => ShopHouseAPI.get(`/product`);
+export const fetchOneProduct = (id) => ShopHouseAPI.get(`/product/${id}`);
+export const createProduct = (newProduct) => 
+  ShopHouseAPI.post(`/product`, newProduct);
+export const deleteProduct = (id) => ShopHouseAPI.delete(`/product/${id}`);
+export const updateProduct = (id, newProduct) =>
+  ShopHouseAPI.put(`/product/${id}`, newProduct);
+export const getProductReport = (filter) => ShopHouseAPI.post("/product/report", filter);
