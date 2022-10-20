@@ -19,10 +19,16 @@ export const fetchUser = (id) => ShopHouseAPI.get(`/user/${id}`);
 export const fetchUserAccordingTopType = (userType) => ShopHouseAPI.get(`/user/${userType}`);
 
 
-export const fetchItems = () => API.get(`/item`);
-export const createItem = (newItem) => API.post(`/item`, newItem);
-export const deleteItem = (id) => API.delete(`/item/${id}`);
-export const updateItem = (id, updateItem) => API.put(`/item/${id}`, updateItem);
+// export const fetchItems = () => API.get(`/item`);
+// export const createItem = (newItem) => API.post(`/item`, newItem);
+// export const deleteItem = (id) => API.delete(`/item/${id}`);
+// export const updateItem = (id, updateItem) => API.put(`/item/${id}`, updateItem);
+
+export const fetchItems = () => ShopHouseAPI.get("/item");
+export const createItem = (newItem) => ShopHouseAPI.post("/item", newItem);
+export const deleteItem = (id) => ShopHouseAPI.delete(`/item/${id}`);
+export const updateItem = (id, newItem) => ShopHouseAPI.patch(`/item/${id}`, newItem);
+export const getoneItem = (id) => ShopHouseAPI.get(`item/${id}`);
 
 export const fetchPayments = () => API.get(`/payment`);
 export const createPayment = (newPayment) => API.post(`/payment`, newPayment);
@@ -39,3 +45,13 @@ export const getFeedbackReport = (filter) => ShopHouseAPI.post("/feedback/report
 
 
 export const fetchTutorials = () => ShopHouseAPI.get(`/tutorial`);
+
+//product
+export const fetchProducts = () => ShopHouseAPI.get(`/product`);
+export const fetchOneProduct = (id) => ShopHouseAPI.get(`/product/${id}`);
+export const createProduct = (newProduct) => 
+  ShopHouseAPI.post(`/product`, newProduct);
+export const deleteProduct = (id) => ShopHouseAPI.delete(`/product/${id}`);
+export const updateProduct = (id, newProduct) =>
+  ShopHouseAPI.put(`/product/${id}`, newProduct);
+export const getProductReport = (filter) => ShopHouseAPI.post("/product/report", filter);

@@ -11,6 +11,7 @@ import tutorialRoutes from "./routes/tutorial.routes.js";
 import userRoutes from "./routes/user.routes.js";
 import feedbackRoutes from "./routes/feedback.routes.js";
 import itemRoutes from "./routes/item.routes.js";
+import productRoutes from "./routes/product.routes.js";
 
 const app = express();
 dotenv.config();
@@ -58,6 +59,7 @@ app.use("/shop-house/tutorial", tutorialRoutes);
 app.use("/shop-house/user", userRoutes);
 app.use("/shop-house/feedback", feedbackRoutes);
 app.use("/shop-house/item", itemRoutes);
+app.use("/shop-house/product", productRoutes);
 
 const CONNECTION_URL = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.46vukap.mongodb.net/?retryWrites=true&w=majority`;
 

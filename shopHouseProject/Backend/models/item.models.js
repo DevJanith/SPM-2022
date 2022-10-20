@@ -3,29 +3,29 @@ import mongoose from "mongoose";
 const itemSchema = mongoose.Schema({
     itemID: {
         type: String,
-        require: true
-    },
-    itemName: {
-        type: String,
-        require: true
-    },
-    itemCategory: {
-        type: String,
         require: true,
-      },
-    itemQuantity: {
-        type: Number,
-        require: true
     },
-    itemPrice: {
-        type: Number,
-        require: true
-    },
-    itemDescription: {
+    name: {
         type: String,
         require: true,
     },
-    itemImage: {
+    category: {
+        type: String,
+        require: true,
+    },
+    qty: {
+        type: String,
+        require: true
+    },
+    price: {
+        type: Number,
+        require: true,
+    },
+    description: {
+        type: String,
+        require: true,
+    },
+    image: {
         type: String,
         require: true,
     },
@@ -44,9 +44,13 @@ const itemSchema = mongoose.Schema({
     updatedAt: {
         type: Date,
         default: new Date()
+    },
+    status: {
+        type: Number,
+        default: 1
     }
 });
 
-const Item = mongoose.model("Item", itemSchema);
+const Item = mongoose.model("Items", itemSchema);
 
 export default Item;
