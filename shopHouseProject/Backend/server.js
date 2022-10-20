@@ -3,18 +3,20 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
-import swaggerJSDoc from "swagger-jsdoc";
-import swaggerUi from "swagger-ui-express";
+import { Stripe } from "stripe";
 
 //import routes
-import tutorialRoutes from "./routes/tutorial.routes.js";
-import userRoutes from "./routes/user.routes.js";
 import feedbackRoutes from "./routes/feedback.routes.js";
 import itemRoutes from "./routes/item.routes.js";
+import tutorialRoutes from "./routes/tutorial.routes.js";
+import userRoutes from "./routes/user.routes.js";
 import productRoutes from "./routes/product.routes.js";
 
 const app = express();
 dotenv.config();
+
+//stripe implementation
+const stripe = Stripe("sk_test_51L45q8LRHo7ESm3WbBWnMoykN3km7eS8OjPASjNE3lViFXubXmGMJMVTOL3whVoL21AghocUo5rAOZWNR7iy91qU00oN1kaRVy")
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));

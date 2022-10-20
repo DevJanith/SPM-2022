@@ -6,12 +6,11 @@ const userSchema = mongoose.Schema({
     // },
     email: {
         type: String,
-        required: true, 
+        required: true,
         unique: true
     },
     password: {
-        type: String,
-        required: true
+        type: String
     },
     type: {
         type: String,
@@ -37,7 +36,7 @@ const userSchema = mongoose.Schema({
         },
         userAddress: {
             type: String
-        },   
+        },
         userType: {
             type: String,
             required: true
@@ -54,22 +53,10 @@ const userSchema = mongoose.Schema({
     updatedAt: {
         type: Date,
         default: new Date()
-    } 
+    }
 });
 
 const User = mongoose.model("Users", userSchema);
 
 export default User;
 
-// {
-// "email":"",
-// "password":"",
-// "confirmPassword":"",
-// "type":"",
-// "userFirstName":"",
-// "userLastName":"",
-// "userContactNumber":"",
-// "userAddressLine1":"",
-// "userAddressLine2":"",
-// "userAddressLine3":"",
-// }
