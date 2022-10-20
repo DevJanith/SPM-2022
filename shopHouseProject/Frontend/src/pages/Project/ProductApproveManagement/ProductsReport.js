@@ -28,6 +28,7 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
 import nodataImage from "../../../assets/no-data.svg";
+import nodataIcon from "../../../assets/remove.png";
 import ShopHouse_Logo from "../../../assets/ShopHouse_Logo.JPG";
 import { PDFExport, savePDF } from "@progress/kendo-react-pdf";
 // import BugReportTwoToneIcon from '@mui/icons-material/BugReportTwoTone';
@@ -343,13 +344,20 @@ export default function ProductsReport(props) {
                     {/* <CircularProgressWithLabel value={progress} /> */}
                   </Box>
                 ) : null}
+                <br></br>
+                <br></br>
 
                 {nodata ? (
                   <center>
-                    <img src={nodataImage} alt="No Data" />
-
-                    <Typography variant="h4" gutterBottom color="#E07171">
-                      No Data
+                    <img 
+                    src={nodataIcon} 
+                    alt="No Data" 
+                    width="128px" 
+                    height="128px"
+                />
+                
+                    <Typography variant="h6" gutterBottom color="#808080">
+                      No data available for the selected Dates
                     </Typography>
                   </center>
                 ) : null}
