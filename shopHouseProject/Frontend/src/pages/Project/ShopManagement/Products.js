@@ -3,7 +3,8 @@ import { Container, Stack, Typography } from '@mui/material';
 import { sample } from 'lodash';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { getItems } from "../../../actions/item.action";
+// import { getItems } from "../../../actions/item.action";
+import { getProducts } from "../../../actions/product.action.js";
 import Page from '../../../components/Page';
 import { ProductCartWidget, ProductFilterSidebar, ProductList, ProductSort } from '../../../sections/@dashboard/products';
 import PRODUCTS from '../../../_mock/products';
@@ -25,7 +26,7 @@ export default function EcommerceShop(props) {
 
   useEffect(() => {
     try {
-      dispatch(getItems());
+      dispatch(getProducts());
     } catch (error) {
       console.log(error);
     }

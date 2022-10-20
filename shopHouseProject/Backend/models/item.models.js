@@ -44,6 +44,10 @@ const itemSchema = mongoose.Schema({
     updatedAt: {
         type: Date,
         default: new Date()
+    },
+    status: {
+        type: Number,
+        default: 1
     }
 });
 

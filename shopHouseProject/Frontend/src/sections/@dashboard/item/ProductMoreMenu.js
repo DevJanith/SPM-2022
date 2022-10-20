@@ -5,10 +5,10 @@ import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText } from '@mui/mat
 // component
 import Iconify from '../../../components/Iconify';
 import { useDispatch } from 'react-redux';
-import { deleteItem } from "../../../actions/item.action.js"
+import { deleteItem } from "../../../actions/item.action"
 // ----------------------------------------------------------------------
 
-export default function ItemMoreMenu(props) {
+export default function ProductMoreMenu(props) {
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch()

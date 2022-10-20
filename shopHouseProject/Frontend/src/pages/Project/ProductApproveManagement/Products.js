@@ -1,18 +1,19 @@
+import { makeStyles } from "@material-ui/core/styles";
 import {
     Button, Card, Checkbox, Container, Stack, Table, TableBody,
     TableCell, TableContainer,
-    TablePagination, TableRow, Typography
+    TablePagination, TableRow
 } from '@mui/material';
+import Alert from '@mui/material/Alert';
+import { styled } from '@mui/material/styles';
 import { filter } from 'lodash';
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-// import { getItems } from "../../../actions/item.action";
-import { getProducts } from "../../../actions/product.action.js";
+import React, { useState } from 'react';
+import { useDispatch } from "react-redux";
+import { createProduct } from "../../../../src/actions/product.action.js";
 import Page from '../../../components/Page';
 import Scrollbar from '../../../components/Scrollbar';
 import SearchNotFound from '../../../components/SearchNotFound';
-import { ItemListHead, ItemMoreMenu } from '../../../sections/@dashboard/item';
-import { ProductCartWidget } from '../../../sections/@dashboard/products';
+import { ItemListHead, ItemListToolbar, ItemMoreMenu, ProductMoreMenu } from '../../../sections/@dashboard/item';
 
 
 const TABLE_HEAD = [
@@ -21,9 +22,9 @@ const TABLE_HEAD = [
     { id: 'description', label: 'Description', alignRight: false },
     { id: 'qty', label: 'Quantity', alignRight: false },
     { id: 'price', label: 'price', alignRight: false },
+    { id: 'ProdStatus', label: 'Product Status', alignRight: false },
+    { id: 'action', label: 'Action', alignRight: false },
 ];
-
-
 
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -54,25 +55,21 @@ function applySortFilter(array, comparator, query) {
     return stabilizedThis.map((el) => el[0]);
 }
 
-export default function ProductList(props) {
+export default function Item(props) {
 
     const {
-        handleClickCartButton,
+        items,
+        itemData,
+        setItemData,
+        handleSubmit,
+        clear,
+        currentId,
+        setCurrentId,
         value,
         setValue
-    } = props
+    } = props;
 
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        try {
-            dispatch(getProducts());
-        } catch (error) {
-            console.log(error);
-        }
-    }, []);
-
-    const items = useSelector((state) => state.itemReducer);
 
     const [page, setPage] = useState(0);
 
@@ -135,23 +132,64 @@ export default function ProductList(props) {
 
     const isUserNotFound = filteredUsers.length === 0;
 
+    //Switch function handles from here
+
+    const [state, setState] = React.useState({
+        checkedA: false,
+        checkedB: true,
+    });
+
+    const handleChange = (event) => {
+        setState({ ...state, [event.target.name]: event.target.checked });
+    };
+
+
+    const Div = styled('div')(({ theme }) => ({
+        ...theme.typography.button,
+        backgroundColor: '#f2f2f2',
+        fontSize: '35px',
+        padding: theme.spacing(1),
+    }));
+
+
+    const useStyles = makeStyles({
+        custom: {
+            color: "#FF0000",
+            fontSize: "25px",
+            fontWeight: "bold"
+        },
+
+        root: {
+            background: "#56ab2f",
+            border: 0,
+            borderRadius: 3,
+            boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+            color: "#000000",
+            height: 25,
+            padding: "0 12px",
+            borderRadius: "25px",
+            fontSize: "12px"
+        }
+
+    });
+
+    const classes = useStyles();
+
+    const handleVerfiy = (data) => {
+        dispatch(createProduct(data));
+    }
 
     return (
-        <Page title="Product-List">
+        <Page title="Item">
             <Container>
                 <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-                    <Typography variant="h4" gutterBottom>
-                        Product List
-                    </Typography>
-                    {/* <Link to={"/dashboard/item-create"} style={{ textDecoration: "none" }}>
-                        <Button variant="contained" to="#" startIcon={<Iconify icon="eva:plus-fill" />}>
-                            New Item
-                        </Button>
-                    </Link> */}
+
+                    <Div>{"Product List"}</Div>
+
                 </Stack>
 
                 <Card>
-                    {/* <ItemListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} /> */}
+                    <ItemListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
 
                     <Scrollbar>
                         <TableContainer sx={{ minWidth: 800 }}>
@@ -167,14 +205,14 @@ export default function ProductList(props) {
                                 />
                                 <TableBody>
                                     {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                                        // const { id, name, role, status, company, avatarUrl, isVerified } = row;
-                                        const { id, name, description, qty, price } = row;
+
+                                        const { _id, name, description, qty, price, status } = row;
                                         const isItemSelected = selected.indexOf(name) !== -1;
 
                                         return (
                                             <TableRow
                                                 hover
-                                                key={id}
+                                                key={_id}
                                                 tabIndex={-1}
                                                 role="checkbox"
                                                 selected={isItemSelected}
@@ -183,34 +221,47 @@ export default function ProductList(props) {
                                                 <TableCell padding="checkbox">
                                                     <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, name)} />
                                                 </TableCell>
-                                                {/* <TableCell component="th" scope="row" padding="none">
-                                                    <Stack direction="row" alignItems="center" spacing={2}>
-                                                        <Avatar alt={name} src={avatarUrl} />
-                                                        <Typography variant="subtitle2" noWrap>
-                                                            {name}
-                                                        </Typography>
-                                                    </Stack>
-                                                </TableCell> */}
+
                                                 <TableCell align="left">{name}</TableCell>
                                                 <TableCell align="left">{description}</TableCell>
                                                 <TableCell align="left">{qty}</TableCell>
                                                 <TableCell align="left">{price}</TableCell>
 
-                                                {/* <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell> */}
-                                                {/* <TableCell align="left">
-                                                    <Label variant="ghost" color={(status === 'banned' && 'error') || 'success'}>
-                                                        {sentenceCase(status)}
-                                                    </Label>
-                                                </TableCell> */}
-                                                <TableCell align="right">
 
-                                                    <Button onClick={() => handleClickCartButton(row)} variant="outlined">Add to Cart</Button>
-
+                                                {status == 1
+                                                    ?
+                                                    <>
+                                                        <TableCell align="left">
+                                                            <Alert severity="info">Pending Approval</Alert>
+                                                        </TableCell>
+                                                    </>
+                                                    :
+                                                    <>
+                                                        <TableCell align="left">
+                                                            <Alert severity="success">Approved</Alert>
+                                                        </TableCell>
+                                                    </>
+                                                }
+                                                <TableCell align="left">
+                                                    <Button onClick={() => handleVerfiy(row)} type="button" disabled={status == 1 ? false : true} /*className={classes.root}*/>
+                                                        Approve Product
+                                                    </Button>
                                                 </TableCell>
 
 
                                                 <TableCell align="right">
-                                                    <ItemMoreMenu row={row} />
+                                                    <ItemMoreMenu
+                                                        row={row}
+                                                        items={items}
+                                                        itemData={itemData}
+                                                        setItemData={setItemData}
+                                                        handleSubmit={handleSubmit}
+                                                        clear={clear}
+                                                        currentId={currentId}
+                                                        setCurrentId={setCurrentId}
+                                                        value={value}
+                                                        setValue={setValue}
+                                                    />
                                                 </TableCell>
                                             </TableRow>
                                         );
@@ -245,8 +296,8 @@ export default function ProductList(props) {
                         onRowsPerPageChange={handleChangeRowsPerPage}
                     />
                 </Card>
-                <ProductCartWidget setValue={setValue} value={value} />
             </Container>
         </Page>
+
     );
 }
