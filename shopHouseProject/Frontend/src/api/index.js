@@ -29,6 +29,7 @@ export const createItem = (newItem) => ShopHouseAPI.post("/item", newItem);
 export const deleteItem = (id) => ShopHouseAPI.delete(`/item/${id}`);
 export const updateItem = (id, newItem) => ShopHouseAPI.patch(`/item/${id}`, newItem);
 export const getoneItem = (id) => ShopHouseAPI.get(`item/${id}`);
+export const getItemReport = (filter) => ShopHouseAPI.post("/item/report", filter);
 
 export const fetchPayments = () => API.get(`/payment`);
 export const createPayment = (newPayment) => API.post(`/payment`, newPayment);
