@@ -3,7 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
-import { Stripe } from "stripe"
+import { Stripe } from "stripe";
 
 //import routes
 import feedbackRoutes from "./routes/feedback.routes.js";
