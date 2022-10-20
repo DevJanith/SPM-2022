@@ -14,7 +14,6 @@
 
 
 export const dbConfig = {
-    HOST: "localhost",
     USER: "root",
     PASSWORD: "1234",
     DB: "farmerPortal",

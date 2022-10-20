@@ -9,7 +9,8 @@ import Page from '../../../components/Page';
 import Scrollbar from '../../../components/Scrollbar';
 import SearchNotFound from '../../../components/SearchNotFound';
 import { ItemListHead, ItemListToolbar, ItemMoreMenu } from '../../../sections/@dashboard/item';
-
+import { Link } from 'react-router-dom';
+import { Button } from "@mui/material"
 
 const TABLE_HEAD = [
 
@@ -144,11 +145,11 @@ export default function Item(props) {
                     <Typography variant="h4" gutterBottom>
                         Item
                     </Typography>
-                    {/* <Link to={"/dashboard/item-create"} style={{ textDecoration: "none" }}>
-                        <Button variant="contained" to="#" startIcon={<Iconify icon="eva:plus-fill" />}>
+                    <Link to={"/dashboard/item-create"} style={{ textDecoration: "none" }}>
+                        <Button variant="contained" to="#">
                             New Item
                         </Button>
-                    </Link> */}
+                    </Link>
                 </Stack>
 
                 <Card>
@@ -169,13 +170,13 @@ export default function Item(props) {
                                 <TableBody>
                                     {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                                         // const { id, name, role, status, company, avatarUrl, isVerified } = row;
-                                        const { id, name, description, qty, price } = row;
+                                        const { _id, name, description, qty, price } = row;
                                         const isItemSelected = selected.indexOf(name) !== -1;
 
                                         return (
                                             <TableRow
                                                 hover
-                                                key={id}
+                                                key={_id}
                                                 tabIndex={-1}
                                                 role="checkbox"
                                                 selected={isItemSelected}
