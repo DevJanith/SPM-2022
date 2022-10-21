@@ -9,11 +9,10 @@ import DashboardApp from "./pages/DashboardApp";
 import NotFound from "./pages/Page404";
 import { Buyer } from "./pages/Project/Buyer/Buyer";
 import ItemManagement from "./pages/Project/ItemManagement/ItemManagement";
-import PaymentManagement from "./pages/Project/PaymentManagement/PaymentManagement";
+import PaymentInvoice from "./pages/Project/PaymentManagement/PaymentInvoice";
 import ProductApproveManagement from "./pages/Project/ProductApproveManagement/ProductManagement";
 import ShopManagement from "./pages/Project/ShopManagement/ShopManagement";
 import TransactionManagement from "./pages/Project/TransactionManagment/TransactionManagment";
-import TutorialManagement from "./pages/Project/TutorialManagement/TutorialManagement";
 import Login from "./pages/Project/UserManagement/Login";
 import Register from "./pages/Project/UserManagement/Register";
 import User from "./pages/Project/UserManagement/User";
@@ -48,7 +47,7 @@ export default function App() {
             <Route path="item-management" element={<ItemManagement />} />
             <Route path="product-approve-management" element={<ProductApproveManagement />} />
             <Route path="shop-management" element={<ShopManagement />} />
-            <Route path="payment-management" element={<PaymentManagement />} />
+            <Route path="payment-management" element={<PaymentInvoice />} />
             <Route path="transaction-management" element={<TransactionManagement />} />
             {/* <Route path="tutorial-management"  element={<TutorialManagement />} /> */}
             <Route path="feedback-management" element={<FeedBackManagement />} />
