@@ -10,6 +10,7 @@ import Page from '../../../components/Page';
 import Item from './Item';
 import ItemCreate from './ItemCreate';
 import ItemUpdate from './ItemUpdate';
+import ItemReport from './ItemReport';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -80,7 +81,7 @@ export default function ItemManagement() {
 
     const items = useSelector((state) => state.itemReducer);
 
-    const itemFormData = useSelector((state) => (currentId ? state.itemReducer.find((data) => data.id === currentId) : null));
+    const itemFormData = useSelector((state) => (currentId ? state.itemReducer.find((data) => data._id === currentId) : null));
 
     useEffect(() => {
         if (itemFormData) {
@@ -133,6 +134,8 @@ export default function ItemManagement() {
                         <Tab label="Item" {...a11yProps(0)} />
                         <Tab label="Item Create" {...a11yProps(1)} />
                         <Tab label="Item Update" {...a11yProps(2)} />
+                        <Tab label="Item Report" {...a11yProps(3)} />
+
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>
@@ -162,6 +165,19 @@ export default function ItemManagement() {
                 </TabPanel>
                 <TabPanel value={value} index={2}>
                     <ItemUpdate
+                        itemData={itemData}
+                        setItemData={setItemData}
+                        handleSubmit={handleSubmit}
+                        clear={clear}
+                        currentId={currentId}
+                        setCurrentId={setCurrentId}
+                        value={value}
+                        setValue={setValue}
+                        notify={notify}
+                    />
+                </TabPanel>
+                <TabPanel value={value} index={3}>
+                    <ItemReport
                         itemData={itemData}
                         setItemData={setItemData}
                         handleSubmit={handleSubmit}

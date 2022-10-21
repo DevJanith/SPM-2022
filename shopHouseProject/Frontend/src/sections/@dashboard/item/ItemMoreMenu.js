@@ -5,7 +5,7 @@ import { Menu, MenuItem, IconButton, ListItemIcon, ListItemText } from '@mui/mat
 // component
 import Iconify from '../../../components/Iconify';
 import { useDispatch } from 'react-redux';
-import { deleteItem } from "../../../actions/item.action"
+import { deleteItem } from "../../../actions/item.action.js"
 // ----------------------------------------------------------------------
 
 export default function ItemMoreMenu(props) {
@@ -44,7 +44,7 @@ export default function ItemMoreMenu(props) {
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       >
-        <MenuItem sx={{ color: 'text.secondary' }} onClick={(e) => { dispatch(deleteItem(row.id)) }}>
+        <MenuItem sx={{ color: 'text.secondary' }} onClick={(e) => { dispatch(deleteItem(row._id)) }}>
           <ListItemIcon>
             <Iconify icon="eva:trash-2-outline" width={24} height={24} />
           </ListItemIcon>
@@ -54,7 +54,7 @@ export default function ItemMoreMenu(props) {
         {/* <Link to={`/dashboard/item-update/${props.row.id}`} style={{ textDecoration: "none" }}> */}
         <MenuItem to="#" sx={{ color: 'text.secondary' }}
           onClick={() => {
-            setCurrentId(row.id)
+            setCurrentId(row._id)
             // setValue(2)
           }
           }>

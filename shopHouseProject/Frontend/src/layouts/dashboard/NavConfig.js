@@ -11,31 +11,6 @@ const navConfig = [
     path: '/dashboard/app',
     icon: getIcon('eva:pie-chart-2-fill'),
   },
-  // {
-  //   title: 'user',
-  //   path: '/dashboard/user',
-  //   icon: getIcon('eva:people-fill'),
-  // },
-  // {
-  //   title: 'Item',
-  //   path: '/dashboard/item',
-  //   icon: getIcon('eva:activity-fill'),
-  // },
-  // {
-  //   title: 'Product',
-  //   path: '/dashboard/product',
-  //   icon: getIcon('eva:shopping-bag-fill'),
-  // },
-  // {
-  //   title: 'Product List',
-  //   path: '/dashboard/productList',
-  //   icon: getIcon('eva:shopping-bag-outline'),
-  // },
-  // {
-  //   title: 'blog',
-  //   path: '/dashboard/blog',
-  //   icon: getIcon('eva:file-text-fill'),
-  // },
   {
     title: 'user management',
     path: '/dashboard/user-management',
@@ -45,6 +20,11 @@ const navConfig = [
     title: 'item management',
     path: '/dashboard/item-management',
     icon: getIcon('eva:activity-fill'),
+  },
+  {
+    title: 'Product Approve management',
+    path: '/dashboard/product-approve-management',
+    icon: getIcon('icon-park-outline:correct'),
   },
   {
     title: 'shop management',
@@ -76,21 +56,6 @@ const navConfig = [
     path: "/dashboard/feedback-management",
     icon: getIcon("eva:message-circle-outline"),
   },
-  // {
-  //   title: 'login',
-  //   path: '/login',
-  //   icon: getIcon('eva:lock-fill'),
-  // },
-  // {
-  //   title: 'register',
-  //   path: '/register',
-  //   icon: getIcon('eva:person-add-fill'),
-  // },
-  // {
-  //   title: 'Not found',
-  //   path: '/404',
-  //   icon: getIcon('eva:alert-triangle-fill'),
-  // },
 ];
 
 export default navConfig;
