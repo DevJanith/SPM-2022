@@ -23,7 +23,7 @@ const Checkout = ({ name, description, amount }) => {
         // const header = {
         //     "COntent-Type": "application/json"
         // }
-        // return fetch(`http://localhost:5000/payment`, {
+        // return fetch(`https://shop-house-eca5b0c5-2934-4483.herokuapp.com/payment`, {
         //     method: "POST",
         //     headers: header,
         //     body: JSON.stringify(body)

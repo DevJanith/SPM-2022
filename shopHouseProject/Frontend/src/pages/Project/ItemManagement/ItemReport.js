@@ -100,7 +100,7 @@ export default function ItemReport(props) {
     useEffect(() => {
         setLoading(true);
         axios
-          .get("http://localhost:5000/shop-house/Item/")
+          .get("https://shop-house-eca5b0c5-2934-4483.herokuapp.com/shop-house/Item/")
           .then((res) => {
             setTableData(res.data.data);
             console.log(tableData);
@@ -123,7 +123,7 @@ export default function ItemReport(props) {
           end: endDate.toISOString(),
         };
         axios
-          .post("http://localhost:5000/shop-house/item/report", filter)
+          .post("https://shop-house-eca5b0c5-2934-4483.herokuapp.com/shop-house/item/report", filter)
           .then((res) => {
             console.log(res);
             if (res.data.data) {
