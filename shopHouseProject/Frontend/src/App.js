@@ -1,15 +1,16 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { BaseOptionChartStyle } from "./components/chart/BaseOptionChart";
 import ScrollToTop from "./components/ScrollToTop";
+import BuyerLayout from "./layouts/buyer";
 import DashboardLayout from "./layouts/dashboard";
 import LogoOnlyLayout from "./layouts/LogoOnlyLayout";
-// import Blog from "./pages/Blog";
 import { FeedBack, FeedBackManagement } from "./pages";
 import DashboardApp from "./pages/DashboardApp";
 import NotFound from "./pages/Page404";
+import { Buyer } from "./pages/Project/Buyer/Buyer";
 import ItemManagement from "./pages/Project/ItemManagement/ItemManagement";
-import ProductApproveManagement from "./pages/Project/ProductApproveManagement/ProductManagement";
 import PaymentManagement from "./pages/Project/PaymentManagement/PaymentManagement";
+import ProductApproveManagement from "./pages/Project/ProductApproveManagement/ProductManagement";
 import ShopManagement from "./pages/Project/ShopManagement/ShopManagement";
 import TransactionManagement from "./pages/Project/TransactionManagment/TransactionManagment";
 import TutorialManagement from "./pages/Project/TutorialManagement/TutorialManagement";
@@ -43,27 +44,26 @@ export default function App() {
             <Route path="user-management/approve/:id" element={<UserApprove />} />
             <Route path="user-management/view/:id" element={<UserView />} />
             <Route path="user-management/edit/:id" element={<UserEdit />} />
+
             <Route path="item-management" element={<ItemManagement />} />
             <Route path="product-approve-management" element={<ProductApproveManagement />} />
             <Route path="shop-management" element={<ShopManagement />} />
             <Route path="payment-management" element={<PaymentManagement />} />
-            <Route
-              path="transaction-management"
-              element={<TransactionManagement />}
-            />
-            <Route
-              path="tutorial-management"
-              element={<TutorialManagement />}
-            />
-            <Route
-              path="feedback-management"
-              element={<FeedBackManagement />}
-            />
+            <Route path="transaction-management" element={<TransactionManagement />} />
+            {/* <Route path="tutorial-management"  element={<TutorialManagement />} /> */}
+            <Route path="feedback-management" element={<FeedBackManagement />} />
             <Route path="feedback" element={<FeedBack />} />
 
-            {/* <Route path='blog' element={<Blog />} /> */}
             <Route path="*" element={<Navigate to="/404" />} />
           </Route>
+
+          <Route path="buyer" element={<BuyerLayout />} >
+            <Route path={`*`} element={<Buyer />} />
+            <Route path="shop-management" element={<ShopManagement />} />
+            <Route path="feedback" element={<FeedBack />} />
+          </Route>
+
+
           <Route path="*" element={<Navigate to="/404" replace />} />
         </Route>
       </Routes>
