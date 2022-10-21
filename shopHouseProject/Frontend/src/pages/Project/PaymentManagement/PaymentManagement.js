@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import Page from '../../../components/Page';
 import Invoice from './Invoice';
+import Checkout from './layout/Checkout';
 import Payment from "./Payment";
 
 function TabPanel(props) {
@@ -59,7 +60,7 @@ export default function PaymentManagement() {
         } catch (error) {
             console.log(error)
         }
-    }, []) 
+    }, [])
 
     return (
         <Page title="Payment Management">
@@ -68,6 +69,7 @@ export default function PaymentManagement() {
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                         <Tab label="Invoice" {...a11yProps(0)} />
                         <Tab label="Payment" {...a11yProps(1)} />
+                        <Tab label="Stripe-Payment" {...a11yProps(2)} />
                         {/* <Tab label="Cart" {...a11yProps(2)} /> */}
                     </Tabs>
                 </Box>
@@ -89,11 +91,15 @@ export default function PaymentManagement() {
                         setUserData={setUserData}
                         value={value}
                         setValue={setValue}
-                    />s
+                    />
                 </TabPanel>
-                {/* <TabPanel value={value} index={2}>
-                <Cart cart={cart} setCart={setCart} />
-            </TabPanel> */}
+                <TabPanel value={value} index={2}>
+                    <Checkout
+                        name={'The Road to learn React'}
+                        description={'Only the Book'}
+                        amount={1540.00}
+                    /> 
+                </TabPanel> 
             </Box>
         </Page>
     );

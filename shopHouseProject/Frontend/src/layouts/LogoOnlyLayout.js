@@ -1,8 +1,9 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
 // components
 import Logo from '../components/Logo';
+import { Button } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -21,11 +22,18 @@ const HeaderStyle = styled('header')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function LogoOnlyLayout() {
+  let navigate = useNavigate()
+  console.log(window.location.pathname);
   return (
     <>
       <HeaderStyle>
-        <Logo />
+        {/* <Logo /> */}
       </HeaderStyle>
+      {window.location.pathname == "/" &&
+        <>
+          <Button onClick={() => { navigate(`/buyer/home`) }}>Home Page</Button>
+        </>
+      }
       <Outlet />
     </>
   );

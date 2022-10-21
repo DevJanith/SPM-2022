@@ -235,7 +235,7 @@ export function FeedBackView(props) {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:5000/shop-house/feedback/user/${window.sessionStorage.getItem(
+        `https://shop-house-eca5b0c5-2934-4483.herokuapp.com/shop-house/feedback/user/${window.sessionStorage.getItem(
           "userId"
         )}`
       )
