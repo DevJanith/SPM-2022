@@ -57,6 +57,43 @@ export const getItem = async (req, res) => {
     }
 }
 
+//get report data
+export const getItemReport = async (req, res) => {
+    const startDate = req.body.start;
+    const endDate = req.body.end;
+  
+    try {
+      const Items = await Item.find({
+        date: {
+          $gte: startDate,
+          $lte: endDate,
+        },
+      }).sort({
+        date: 1,
+      });
+  
+      res.status(200);
+  
+      if (Items.length != 0) {
+        res.json({
+          filter: {
+            startDate,
+            endDate,
+          },
+          data: Items,
+        });
+      } else {
+        res.json({
+          message: "No Data for selected filter",
+          data: null,
+        });
+      }
+    } catch (error) {
+      res.status(404);
+      res.json({ message: error.message });
+    }
+  };
+
 export const updateItem = async (req, res) => {
     const { id } = req.params;
     const { category,name,price,qty,description } = req.body;
