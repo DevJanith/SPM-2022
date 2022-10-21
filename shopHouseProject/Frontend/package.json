@@ -46,6 +46,7 @@
     "@mui/icons-material": "^5.10.9",
     "@mui/lab": "^5.0.0-alpha.77",
     "@mui/material": "^5.10.10",
+    "@mui/styles": "^5.10.10",
     "@mui/x-date-pickers": "^5.0.0",
     "@progress/kendo-drawing": "^1.16.3",
     "@progress/kendo-licensing": "^1.2.2",

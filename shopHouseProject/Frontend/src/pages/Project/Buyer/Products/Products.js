@@ -1,15 +1,14 @@
 import { faker } from '@faker-js/faker';
-import { Container, Stack } from '@mui/material';
+import { Card, CardContent, Container, Divider, Grid, Stack, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { sample } from 'lodash';
-import * as React from 'react';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../../../actions/product.action.js";
-import Page from '../../../components/Page';
-import { ProductCartWidget, ProductFilterSidebar, ProductList, ProductSort } from '../../../sections/@dashboard/products';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from "react-redux";
+import { fetchProducts } from '../../../../api';
+import Page from '../../../../components/Page';
+import { ProductCartWidget, ProductFilterSidebar, ProductList, ProductSort } from '../../../../sections/@dashboard/products';
 
-export default function EcommerceShop(props) {
+export default function Products(props) {
 
   const {
     setValue,
@@ -19,18 +18,30 @@ export default function EcommerceShop(props) {
   } = props
 
   const [openFilter, setOpenFilter] = useState(false);
+  const [items, setItems] = useState([])
 
   const dispatch = useDispatch();
 
+  const getAllProducts = async () => {
+    await dispatch(
+      fetchProducts()
+        .then((response) => {
+          console.log(response.data)
+          setItems(response.data)
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    )
+  }
   useEffect(() => {
     try {
-      dispatch(getProducts());
+      getAllProducts()
     } catch (error) {
       console.log(error);
     }
   }, []);
 
-  const items = useSelector((state) => state.itemReducer);
 
   const PRODUCT_COLOR = ['#00AB55', '#000000', '#FFFFFF', '#FFC0CB', '#FF4842', '#1890FF', '#94D82D', '#FFC107', '#0909FF'];
 
@@ -88,26 +99,33 @@ export default function EcommerceShop(props) {
 
   return (
     <Page title="Products">
-      <Container>
-        {/* <Typography variant="h3" sx={{ mb: 4}}>
-          Products
-        </Typography> */}
-
-        <Div>{"Products"}</Div>
-
-        <Stack direction="row" flexWrap="wrap-reverse" alignItems="center" justifyContent="flex-end" sx={{ mb: 5 }}>
-          <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
-            <ProductFilterSidebar
-              isOpenFilter={openFilter}
-              onOpenFilter={handleOpenFilter}
-              onCloseFilter={handleCloseFilter}
-            />
-            <ProductSort />
-          </Stack>
-        </Stack>
-
-        <ProductList products={products} />
-        <ProductCartWidget setValue={setValue} value={value} cart={cart} setCart={setCart} />
+      <Container maxWidth="xl">
+        <Card>
+          <CardContent>
+            <Grid container spacing={2}>
+              <Grid item md={12}>
+                <Typography variant="h2" gutterBottom textAlign={"center"}  >
+                  Products
+                </Typography>
+                <Divider variant="middle" />
+              </Grid>
+              <Grid item md={12}>
+                <Stack direction="row" flexWrap="wrap-reverse" alignItems="center" justifyContent="flex-end" sx={{ mb: 5 }}>
+                  <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
+                    <ProductFilterSidebar
+                      isOpenFilter={openFilter}
+                      onOpenFilter={handleOpenFilter}
+                      onCloseFilter={handleCloseFilter}
+                    />
+                    <ProductSort />
+                  </Stack>
+                </Stack>
+                <ProductList products={products} page={"home"} />
+                <ProductCartWidget setValue={setValue} value={value} cart={cart} setCart={setCart} />
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
       </Container>
     </Page>
   );
