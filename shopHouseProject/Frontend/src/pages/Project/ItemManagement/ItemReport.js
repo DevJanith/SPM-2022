@@ -48,6 +48,7 @@ import axios from "axios";
 import { PDFExport, savePDF } from "@progress/kendo-react-pdf";
 import nodataImage from "../../../assets/no-data.svg";
 import { getItemReport } from '../../../api';
+
 const ContentStyle = styled('div')(({ theme }) => ({
     margin: '5vh 0',
     display: 'flex',
@@ -87,7 +88,7 @@ export default function ItemReport(props) {
       return { name, calories, fat, carbs, protein };
     }
   
-    // //   view feedbacks filter
+    // //   view Items filter
     // const filterByRating = (value) => {
     //   filterItems.sort((a, b) => Number(a.rating) - Number(b.rating));
     //   console.log("ascending", filterItems);
@@ -150,6 +151,14 @@ export default function ItemReport(props) {
       const generatePDF = () => {
         if (pdfExportComponent.current) {
           pdfExportComponent.current.save();
+        }
+      };
+
+      const csvExportComponent = React.useRef(null);
+    
+      const generateCSV = () => {
+        if (csvExportComponent.current) {
+          csvExportComponent.current.save();
         }
       };
 
@@ -244,6 +253,16 @@ export default function ItemReport(props) {
                     onClick={generatePDF}
                   >
                     Download as PDF
+                  </Button>
+                  <Button
+                    disabled={reportButton}
+                    variant="outlined"
+                    startIcon={getIcon("eva:arrow-circle-down-outline")}
+                    sx={{ marginLeft: 2 }}
+                    color="error"
+                    onClick={generateCSV}
+                  >
+                    Download as CSV
                   </Button>
                   </Grid>
                   </Card>
@@ -345,7 +364,7 @@ export default function ItemReport(props) {
                   <PDFExport
                     ref={pdfExportComponent}
                     papersize="A4"
-                    fileName="feedback-report"
+                    fileName="Item-report"
                     margin="1cm"
                   >
                     <center>
