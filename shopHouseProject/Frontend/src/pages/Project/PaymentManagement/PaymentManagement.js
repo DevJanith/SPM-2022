@@ -98,8 +98,8 @@ export default function PaymentManagement() {
                         name={'The Road to learn React'}
                         description={'Only the Book'}
                         amount={1540.00}
-                    /> 
-                </TabPanel> 
+                    />
+                </TabPanel>
             </Box>
         </Page>
     );

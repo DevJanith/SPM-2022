@@ -2,7 +2,7 @@ import { Button, Grid, MenuItem, TextField } from '@mui/material';
 import { Form, FormikProvider, useFormik } from 'formik';
 import * as React from 'react';
 import * as Yup from 'yup';
-
+import Checkout from "../../../layout/Checkout"
 
 export default function OnlinePayment(props) {
 
@@ -57,9 +57,14 @@ export default function OnlinePayment(props) {
                         <Grid item md={4}>
                         </Grid>
                         <Grid item md={4}>
-                            <Button fullWidth size="large" type="submit" variant="contained" loading={false}>
+                            <Checkout
+                                name={'The Road to learn React'}
+                                description={'Only the Book'}
+                                amount={1540.00}
+                            />
+                            {/* <Button fullWidth size="large" type="submit" variant="contained" loading={false}>
                                 Pay via Payment Portal
-                            </Button>
+                            </Button> */}
                         </Grid>
                         <Grid item md={4}>
                             <Button fullWidth size="large" type="button" variant="outlined" loading={false} onClick={() => { setPaymentType("initial") }}>

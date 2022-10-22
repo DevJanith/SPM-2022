@@ -64,7 +64,14 @@ const Checkout = ({ name, description, amount }) => {
             <StripeCheckout
                 stripeKey={"pk_test_51L45q8LRHo7ESm3Wn35XAOoDtztSN7vEZwRyaj7lcwZ8982JQfoGd7tx3DejGs0ixZVQWzsSbuMT7Y54cFG7cAe200xn5qnyMz"}
                 token={makePayment}
-                name="Buy react" />
+                description={description}
+                amount={amount * 100}
+                currency={"LKR"}
+                name={name}>
+                <Button fullWidth size="large" type="submit" variant="contained" loading={false}>
+                    Pay via Payment Portal
+                </Button>
+            </StripeCheckout>
         </>
     )
 }

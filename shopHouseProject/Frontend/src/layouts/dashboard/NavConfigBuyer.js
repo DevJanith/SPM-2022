@@ -36,11 +36,11 @@ const navConfigBuyer = [
   //   path: '/dashboard/blog',
   //   icon: getIcon('eva:file-text-fill'),
   // },
-  {
-    title: "user management",
-    path: "/dashboard/user-management",
-    icon: getIcon("eva:people-fill"),
-  },
+  // {
+  //   title: "user management",
+  //   path: "/dashboard/user-management",
+  //   icon: getIcon("eva:people-fill"),
+  // },
   {
     title: "item management",
     path: "/dashboard/item-management",

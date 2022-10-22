@@ -15,7 +15,7 @@ export default function TraderRegisterForm(props) {
     userType,
     setUserType
   } = props
-  
+
   const dispatch = useDispatch();
   let navigate = useNavigate()
 
@@ -61,12 +61,15 @@ export default function TraderRegisterForm(props) {
     userContactNumber: '',
   }
 
+  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+
   const RegisterSchema = Yup.object().shape({
     email: Yup.string().email('Email Must be a Valid email address').required("Email Field Can not be Empty"),
     type: Yup.string().required("Type Field Can not be Empty"),
     userFirstName: Yup.string().required("First Name Field Can not be Empty"),
     userLastName: Yup.string().required("Last Name Field Can not be Empty"),
-    userContactNumber: Yup.string().required("Contact Number Field Can not be Empty")
+    userContactNumber: Yup.string().matches(phoneRegExp, 'Phone number is not valid')
+    // userContactNumber: Yup.string().required("Contact Number Field Can not be Empty")
   });
 
   const formik = useFormik({
