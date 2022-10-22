@@ -145,11 +145,9 @@ export default function Item(props) {
                     <Typography variant="h4" gutterBottom>
                         Item
                     </Typography>
-                    <Link to={"/dashboard/item-create"} style={{ textDecoration: "none" }}>
-                        <Button variant="contained" to="#">
-                            New Item
-                        </Button>
-                    </Link>
+                    <Button variant="contained" onClick={() => { setValue(1) }}>
+                        New Item
+                    </Button>
                 </Stack>
 
                 <Card>
