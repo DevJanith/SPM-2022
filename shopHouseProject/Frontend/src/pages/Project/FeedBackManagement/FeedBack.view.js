@@ -246,7 +246,7 @@ export function FeedBackView(props) {
       .catch((err) => {
         console.log(err);
       });
-  }, [reloadVal]);
+  }, [reloadVal, data]);
 
   // useEffect(() => {
   //   dispatch(getFeedbacks());
