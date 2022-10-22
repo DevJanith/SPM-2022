@@ -10,6 +10,7 @@ import Page from '../../../components/Page';
 import Item from './Item';
 import ItemCreate from './ItemCreate';
 import ItemUpdate from './ItemUpdate';
+import ItemReport from './ItemReport';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -175,8 +176,8 @@ export default function ItemManagement() {
                         notify={notify}
                     />
                 </TabPanel>
-                {/* <TabPanel value={value} index={3}>
-                    <ItemUpdate
+                <TabPanel value={value} index={3}>
+                    <ItemReport
                         itemData={itemData}
                         setItemData={setItemData}
                         handleSubmit={handleSubmit}
@@ -187,7 +188,7 @@ export default function ItemManagement() {
                         setValue={setValue}
                         notify={notify}
                     />
-                </TabPanel> */}
+                </TabPanel>
             </Box>
             <ToastContainer
                 position="top-right"

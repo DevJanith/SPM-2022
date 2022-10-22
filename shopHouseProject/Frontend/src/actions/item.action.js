@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from '../constants/actionTypes.constants';
+import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE,FETCH_ONE,REPORT } from '../constants/actionTypes.constants';
 
 import * as api from '../api/index.js';
 
@@ -43,3 +43,23 @@ export const deleteItem = (id) => async (dispatch) => {
         console.log(error.message);
     }
 };
+
+export const getoneItem = (id) => async (dispatch) => {
+    try {
+      const { data } = await api.getoneItem(id);
+  
+      dispatch({ type: FETCH_ONE, payload: data });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+export const getItemReport = (filter) => async (dispatch) => {
+    try {
+      const { data } = await api.getItemReport(filter);
+  
+      dispatch({ type: REPORT, payload: data });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
