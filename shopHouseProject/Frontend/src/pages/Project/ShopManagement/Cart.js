@@ -1,5 +1,5 @@
 import {
-    Button, Card, Checkbox, Container, Stack, Table, TableBody,
+    Button, Card, Checkbox, Container, Stack, Table, TableBody, Grid,
     TableCell, TableContainer,
     TablePagination, TableRow, Typography
 } from '@mui/material';
@@ -13,13 +13,16 @@ import Scrollbar from '../../../components/Scrollbar';
 import SearchNotFound from '../../../components/SearchNotFound';
 import { ItemListHead } from '../../../sections/@dashboard/item';
 import { makeStyles } from "@material-ui/core/styles";
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 const TABLE_HEAD = [
     { id: 'name', label: 'Name', alignRight: false },
     { id: 'description', label: 'Description', alignRight: false },
     { id: 'qty', label: 'Quantity', alignRight: false },
-    { id: 'price', label: 'Price ($)', alignRight: false },
+    { id: 'price', label: 'Price (LKR)', alignRight: false },
     { id: 'action', label: '', alignRight: false },
 ];
 
@@ -140,7 +143,7 @@ export default function Cart(props) {
     const useStyles = makeStyles({
         custom: {
             color: "#FF0000",
-            fontSize: "30px",
+            fontSize: "20px",
             fontWeight: "bold"
         },
 
@@ -161,8 +164,8 @@ export default function Cart(props) {
 
     const handleRemoveItem = (value) => {
         console.log(value)
-        const id = value.id
-        setCart(cart.filter(item => item.id !== id));
+        const id = value._id
+        setCart(cart.filter(item => item._id !== id));
     }
 
     return (
@@ -215,9 +218,17 @@ export default function Cart(props) {
 
                                                 <TableCell align="left">
                                                     {/* <Button variant="danger">Delete</Button> */}
-                                                    <Button onClick={() => handleRemoveItem(row)} className={classes.root}>
+                                                    {/* <Button onClick={() => handleRemoveItem(row)} className={classes.root}>
                                                         Delete
-                                                    </Button>
+                                                    </Button> */}
+
+                                                <Grid item md={3} marginTop="2px">
+                                                        <Tooltip title="Delete">
+                                                            <IconButton aria-label="delete" size="large" style={{ border: "1px solid #c0c0c0", borderRadius: "10%" }} onClick={() => handleRemoveItem(row)}>
+                                                                <DeleteIcon color='error' />
+                                                            </IconButton>
+                                                        </Tooltip>
+                                                </Grid>
                                                 </TableCell>
 
                                             </TableRow>
@@ -255,7 +266,7 @@ export default function Cart(props) {
                 </Card>
                 <Card style={{ marginTop: "5%" }}>
                     <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5} style={{ margin: "20px" }}>
-                        <Typography variant="h4" gutterBottom>
+                        <Typography variant="h5" gutterBottom>
                             Total Cost
                         </Typography>
 
