@@ -186,7 +186,7 @@ export default function ProductsReport(props) {
           end: endDate.toISOString(),
         };
         axios
-          .post("http://localhost:5000/shop-house/product/report", filter)
+          .post("https://shop-house-eca5b0c5-2934-4483.herokuapp.com/shop-house/product/report", filter)
           .then((res) => {
             console.log(res);
             if (res.data.data) {
