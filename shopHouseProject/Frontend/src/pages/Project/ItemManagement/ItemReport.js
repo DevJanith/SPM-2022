@@ -254,7 +254,7 @@ export default function ItemReport(props) {
                   >
                     Download as PDF
                   </Button>
-                  <Button
+                  {/* <Button
                     disabled={reportButton}
                     variant="outlined"
                     startIcon={getIcon("eva:arrow-circle-down-outline")}
@@ -263,7 +263,7 @@ export default function ItemReport(props) {
                     onClick={generateCSV}
                   >
                     Download as CSV
-                  </Button>
+                  </Button> */}
                   </Grid>
                   </Card>
                   <TableContainer component={Paper} id="reportTable">
