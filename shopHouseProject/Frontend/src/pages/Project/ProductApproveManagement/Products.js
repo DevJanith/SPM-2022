@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 import {
-    Button, Card, Checkbox, Container, Stack, Table, TableBody,
-    TableCell, TableContainer,
+    Button, Card, Grid, Checkbox, Container, Stack, Table, TableBody,
+    TableCell, TableContainer, Chip,
     TablePagination, TableRow
 } from '@mui/material';
 import Alert from '@mui/material/Alert';
@@ -9,11 +9,16 @@ import { styled } from '@mui/material/styles';
 import { filter } from 'lodash';
 import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
-import { createProduct } from "../../../../src/actions/product.action.js";
+import { createProduct, deleteProduct } from "../../../../src/actions/product.action.js";
 import Page from '../../../components/Page';
 import Scrollbar from '../../../components/Scrollbar';
 import SearchNotFound from '../../../components/SearchNotFound';
 import { ItemListHead, ItemListToolbar, ItemMoreMenu, ProductMoreMenu } from '../../../sections/@dashboard/item';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+// import { deleteProduct, fetchOneProduct } from '../../../api';
+import { useEffect } from "react";
 
 
 const TABLE_HEAD = [
@@ -72,16 +77,27 @@ export default function Item(props) {
     const dispatch = useDispatch();
 
     const [page, setPage] = useState(0);
-
     const [order, setOrder] = useState('asc');
-
     const [selected, setSelected] = useState([]);
-
     const [orderBy, setOrderBy] = useState('name');
-
     const [filterName, setFilterName] = useState('');
-
     const [rowsPerPage, setRowsPerPage] = useState(5);
+
+    const [successDeleteData, setSuccessDeleteData] = useState()
+    const [errorDeleteData, setErrorDeleteData] = useState()
+    const [isDeleteSuccess, setIsDeleteSuccess] = useState(false)
+    const [isDeletePending, setIsDeletePending] = useState(false)
+    const [isDeleteError, setIsDeleteError] = useState(false)
+
+    const [successData, setSuccessData] = useState()
+    const [errorData, setErrorData] = useState()
+    const [isSuccess, setIsSuccess] = useState(false)
+    const [isPending, setIsPending] = useState(false)
+    const [isError, setIsError] = useState(false)
+
+    const [Items, setUsers] = useState({
+        items: []
+    })
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -179,6 +195,11 @@ export default function Item(props) {
         dispatch(createProduct(data));
     }
 
+    const deleteProductOnClick = (data) => {
+        console.log(data);
+        dispatch(deleteProduct(data));
+    }
+
     return (
         <Page title="Item">
             <Container>
@@ -224,7 +245,9 @@ export default function Item(props) {
 
                                                 <TableCell align="left">{name}</TableCell>
                                                 <TableCell align="left">{description}</TableCell>
-                                                <TableCell align="left">{qty}</TableCell>
+                                                <TableCell align="left">
+                                                    <Chip label={qty} variant="outlined" />
+                                                </TableCell>
                                                 <TableCell align="left">{price}</TableCell>
 
 
@@ -248,6 +271,15 @@ export default function Item(props) {
                                                     </Button>
                                                 </TableCell>
 
+                                                <TableCell align="left">
+                                                    <Grid item md={3} marginTop="15px">
+                                                        <Tooltip title="Delete">
+                                                            <IconButton aria-label="delete" size="large" style={{ border: "1px solid #c0c0c0", borderRadius: "10%" }} onClick={() => deleteProductOnClick(_id)}>
+                                                                <DeleteIcon color='error' />
+                                                            </IconButton>
+                                                        </Tooltip>
+                                                    </Grid>
+                                                </TableCell>
 
                                                 <TableCell align="right">
                                                     <ItemMoreMenu
@@ -266,6 +298,7 @@ export default function Item(props) {
                                             </TableRow>
                                         );
                                     })}
+
                                     {emptyRows > 0 && (
                                         <TableRow style={{ height: 53 * emptyRows }}>
                                             <TableCell colSpan={6} />

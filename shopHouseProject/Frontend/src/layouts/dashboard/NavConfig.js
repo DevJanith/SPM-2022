@@ -41,11 +41,11 @@ const navConfig = [
     path: '/dashboard/transaction-management',
     icon: getIcon('eva:paper-plane-fill'),
   },
-  {
-    title: 'tutorial management',
-    path: '/dashboard/tutorial-management',
-    icon: getIcon('eva:book-fill'),
-  },
+  // {
+  //   title: 'tutorial management',
+  //   path: '/dashboard/tutorial-management',
+  //   icon: getIcon('eva:book-fill'),
+  // },
   {
     title: "feedback",
     path: "/dashboard/feedback",
