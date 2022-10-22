@@ -10,6 +10,7 @@ import NotFound from "./pages/Page404";
 import { Buyer } from "./pages/Project/Buyer/Buyer";
 import ItemManagement from "./pages/Project/ItemManagement/ItemManagement";
 import PaymentInvoice from "./pages/Project/PaymentManagement/PaymentInvoice";
+import PaymentManagement from "./pages/Project/PaymentManagement/PaymentManagement";
 import ProductApproveManagement from "./pages/Project/ProductApproveManagement/ProductManagement";
 import ShopManagement from "./pages/Project/ShopManagement/ShopManagement";
 import TransactionManagement from "./pages/Project/TransactionManagment/TransactionManagment";
@@ -48,7 +49,7 @@ export default function App() {
             <Route path="product-approve-management" element={<ProductApproveManagement />} />
             <Route path="shop-management" element={<ShopManagement />} />
             <Route path="payment-management" element={<PaymentInvoice />} />
-            <Route path="transaction-management" element={<TransactionManagement />} />
+            <Route path="transaction-management" element={<PaymentManagement />} />
             {/* <Route path="tutorial-management"  element={<TutorialManagement />} /> */}
             <Route path="feedback-management" element={<FeedBackManagement />} />
             <Route path="feedback" element={<FeedBack />} />
