@@ -64,12 +64,12 @@ export const getItemReport = async (req, res) => {
   
     try {
       const Items = await Item.find({
-        date: {
+        createdAt: {
           $gte: startDate,
           $lte: endDate,
         },
       }).sort({
-        date: 1,
+        createdAt: 1,
       });
   
       res.status(200);
