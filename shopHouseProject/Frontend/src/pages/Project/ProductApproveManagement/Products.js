@@ -9,7 +9,7 @@ import { styled } from '@mui/material/styles';
 import { filter } from 'lodash';
 import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
-import { createProduct } from "../../../../src/actions/product.action.js";
+import { createProduct, deleteProduct } from "../../../../src/actions/product.action.js";
 import Page from '../../../components/Page';
 import Scrollbar from '../../../components/Scrollbar';
 import SearchNotFound from '../../../components/SearchNotFound';
@@ -17,7 +17,7 @@ import { ItemListHead, ItemListToolbar, ItemMoreMenu, ProductMoreMenu } from '..
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { deleteProduct, fetchOneProduct } from '../../../api';
+// import { deleteProduct, fetchOneProduct } from '../../../api';
 import { useEffect } from "react";
 
 
@@ -82,7 +82,7 @@ export default function Item(props) {
     const [orderBy, setOrderBy] = useState('name');
     const [filterName, setFilterName] = useState('');
     const [rowsPerPage, setRowsPerPage] = useState(5);
-    
+
     const [successDeleteData, setSuccessDeleteData] = useState()
     const [errorDeleteData, setErrorDeleteData] = useState()
     const [isDeleteSuccess, setIsDeleteSuccess] = useState(false)
@@ -94,11 +94,11 @@ export default function Item(props) {
     const [isSuccess, setIsSuccess] = useState(false)
     const [isPending, setIsPending] = useState(false)
     const [isError, setIsError] = useState(false)
-    
+
     const [Items, setUsers] = useState({
         items: []
     })
-    
+
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
@@ -195,49 +195,10 @@ export default function Item(props) {
         dispatch(createProduct(data));
     }
 
-    /* Fetch Items */
-    // const getUsers = async (values) => {
-    //     console.log(values);
-    //     setIsPending(true)
-
-    //     await dispatch(
-    //         fetchOneProduct()
-    //             .then((response) => {
-    //                 setSuccessData(response.data)
-    //                 setUsers({ items: response.data })
-    //                 setIsPending(false)
-    //                 setIsSuccess(true)
-    //             })
-    //             .catch((errors) => {
-    //                 setErrorData(errors.response)
-    //                 setIsPending(false)
-    //                 setIsError(true)
-    //             }))
-    // }
-
-
-    // const deleteUser = async (values) => {
-    //     console.log(values);
-    //     setIsPending(true)
-
-    //     await dispatch(
-    //         deleteProduct(values)
-    //             .then((response) => {
-    //                 setSuccessDeleteData(response.data)
-    //                 setIsDeletePending(false)
-    //                 setIsDeleteSuccess(true)
-    //             })
-    //             .catch((errors) => {
-    //                 setErrorDeleteData(errors.response)
-    //                 setIsDeletePending(false)
-    //                 setIsDeleteError(true)
-    //             }))
-    // }
-
-    // useEffect(() => {
-    //     getUsers()
-    //     return
-    // }, [isDeleteSuccess])
+    const deleteProductOnClick = (data) => {
+        console.log(data);
+        dispatch(deleteProduct(data));
+    }
 
     return (
         <Page title="Item">
@@ -311,13 +272,13 @@ export default function Item(props) {
                                                 </TableCell>
 
                                                 <TableCell align="left">
-                                                <Grid item md={3} marginTop="15px">
+                                                    <Grid item md={3} marginTop="15px">
                                                         <Tooltip title="Delete">
-                                                            <IconButton aria-label="delete" size="large" style={{ border: "1px solid #c0c0c0", borderRadius: "10%" }} /*onClick={() => deleteUser(_id)}*/>
+                                                            <IconButton aria-label="delete" size="large" style={{ border: "1px solid #c0c0c0", borderRadius: "10%" }} onClick={() => deleteProductOnClick(_id)}>
                                                                 <DeleteIcon color='error' />
                                                             </IconButton>
                                                         </Tooltip>
-                                                </Grid>
+                                                    </Grid>
                                                 </TableCell>
 
                                                 <TableCell align="right">
@@ -337,7 +298,7 @@ export default function Item(props) {
                                             </TableRow>
                                         );
                                     })}
-                                    
+
                                     {emptyRows > 0 && (
                                         <TableRow style={{ height: 53 * emptyRows }}>
                                             <TableCell colSpan={6} />

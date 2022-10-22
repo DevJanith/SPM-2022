@@ -164,8 +164,8 @@ export default function Cart(props) {
 
     const handleRemoveItem = (value) => {
         console.log(value)
-        const id = value.id
-        setCart(cart.filter(item => item.id !== id));
+        const id = value._id
+        setCart(cart.filter(item => item._id !== id));
     }
 
     return (
